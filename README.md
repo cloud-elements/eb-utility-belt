@@ -1,4 +1,4 @@
-# eb-utility-belt <sub><sup>| Element Builder Utility Belt functions for Chrome </sup></sub>
+# eb-utility-belt <sub><sup>| Element Builder Utility functions for Chrome </sup></sub>
 
 ![eb-belt](https://github.com/cloud-elements/eb-utility-belt/blob/master/eb-belt.png?raw=true)
 
