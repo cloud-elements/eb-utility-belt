@@ -1,11 +1,10 @@
-function checkJson(body) {
+function parseJson(body) {
     var json = null;
     try {
         json = JSON.parse(body);
     } catch (ignoreIt) {
         console.log('exception', ignoreIt);
     }
-    console.log('wtf', json);
     var outputMsg = document.getElementById('outputMsg');
     if (json) {
         outputMsg.value = JSON.stringify(json, 0, 2);
@@ -21,7 +20,7 @@ function generateModel() {
         "inputMsg": inputMsg
     });
 
-    checkJson(inputMsg);
+    parseJson(inputMsg);
 }
 
 window.onload = function () {
