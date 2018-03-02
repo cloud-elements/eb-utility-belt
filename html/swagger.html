@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <script src="../js/swagger.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Google Extension</title>
+    <meta name="description" content="Atuls Google Extension">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .wrapper button {
+            width: 50%;
+            margin: 10px 0;
+            background-color: #44c8f5;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .wrapper input,
+        .wrapper textarea {
+            margin: 5px 0;
+        }
+
+        .back {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .back a.button {
+            width: 10%;
+            position: absolute;
+            right: 5px;
+            /* margin: 10px 0; */
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 7px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <a id="indexbutton" href="./index.html" class="button">Back</a>
+    </div>
+    <div class="wrapper">
+        <h1>Swagger Generator</h1>
+
+        <label name="resource">Resource:</label>
+        <input id="resourceName" type="text" name="resource" />
+        <label name="objectName">ObjectName</label>
+        <input id="objectName" type="text" name="objectName" />
+        <label name="modelName">ModelName</label>
+        <input id="modelName" type="text" name="modelName" />
+        <label name="elementKey">Element Key</label>
+        <input id="elementKey" type="text" name="elementKey" />
+        
+        <textarea id="outputMsg" rows="4" cols="50" placeholder="Output"></textarea>
+        <button id="generateSwagger" type="button">Generate Swagger</button>
+    </div>
+</body>
+
+</html>
