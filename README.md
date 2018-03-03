@@ -9,7 +9,7 @@
     > __PROTIP:__ You can enable a full screen, (_and debugging_) by using the id provided in `chrome://extensions/` and navigating to `chrome-extension://{id}/index.html`
 
 ## Contributing
-1. Chrome APIs can handle most things, but if you need/want to use node - you will need invoke some [browserify](https://github.com/browserify/browserify) magic. This will bundle all of your requires into your specified file that you will run in the browser. 
+- Chrome APIs can handle most things, but if you need/want to use node - you will need invoke some [browserify](https://github.com/browserify/browserify) magic. This will bundle all of your requires into your specified file that you will run in the browser. 
     - `npm install -g browserify`
     - Find yourself where needs be and execute something akin to `browserify sqlFormatter.js > sqlFormatter4browser.js`
     - Refer that bundle in your `.html` and you're gravy :]
