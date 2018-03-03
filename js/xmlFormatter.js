@@ -1,26 +1,31 @@
-function parseJson(body) {
-    var json = null;
+var pd = require('pretty-data').pd;
+
+// Used browserify xmlFormatter.js > xmlFormatter4browser.js to get a browser compatible version...
+function parseAndSetXml(body) {
+    var xml = null;
+    var outputMsg = document.getElementById('outputMsg');
+
     try {
-        json = JSON.parse(body);
+        xml = pd.xml(body, true);
     } catch (ignoreIt) {
         console.log('exception', ignoreIt);
     }
-    var outputMsg = document.getElementById('outputMsg');
-    if (json) {
-        outputMsg.value = JSON.stringify(json, 0, 2);
+
+    if (xml != body) {
+        outputMsg.value = xml;
     } else {
-        outputMsg.value = 'Invalid JSON';
+        outputMsg.value = 'Invalid XML';
     }
 }
 
-function formatJson() {
+function formatXml() {
     var inputMsg = document.getElementById('inputMsg').value;
 
     chrome.storage.sync.set({
         "inputMsg": inputMsg
     });
 
-    parseJson(inputMsg);
+    parseAndSetXml(inputMsg);
 }
 
 window.onload = function () {
@@ -35,14 +40,13 @@ window.onload = function () {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    var formatJsonButton = document.getElementById('formatJson');
+    var formatXmlButton = document.getElementById('formatXml');
     var outputMsg = document.getElementById('inputMsg');
     var outputMsg = document.getElementById('outputMsg');
 
-    formatJsonButton.addEventListener('click', function () {
-
+    formatXmlButton.addEventListener('click', function () {
         chrome.tabs.getSelected(null, function (tab) {
-            formatJson();
+            formatXml();
         });
     }, false);
 }, false);
