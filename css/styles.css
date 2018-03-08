@@ -1,0 +1,39 @@
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
+@media (max-width: 600px) {
+  .column {
+      width: 100%;
+  }
+}
+
+.fade-small-text {
+  font-size: 15px;
+  opacity: 0;
+  color: #1aa3ff;
+  animation-name: faded;
+  margin-top: 20px;
+  animation-delay: .5s;
+  animation-duration: 6s;
+}
+
+@keyframes faded {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#shortener-wrapper{
+  position:absolute;
+  top:0;
+  right:0;
+  margin:5px;
+ }

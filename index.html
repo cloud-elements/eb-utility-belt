@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="Atuls Google Extension">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
     <style>
         .wrapper {
             width: 300px;
@@ -27,7 +28,20 @@
 </head>
 
 <body>
-    <h1>CE EB Utils</h1>
+    <div class="row">
+        <div class="column">
+            <h1>CE EB Utils</h1> 
+        </div>
+        <div>
+            <div class="column"> 
+                <a href="https://google.com" id="shortener-wrapper">
+                    <img id="url-shortener" src="/resources/linkclipboard.png" width="15" height="15" alt="URL Shortener">
+                    <script type="text/javascript" src="js/copyUrl.js"></script>
+                </a>   
+            </div>
+            <div class="column fade-small-text" id="url"> </div>
+        </div>
+    </div>
     <div class="wrapper">
         <a id="swaggermenu" href="./html/swagger.html" class="button">Go to swagger menu</a>
     </div>
@@ -41,5 +55,6 @@
         <a id="converters" href="./html/converterIndex.html" class="button">Go to converter menu</a>
     </div>
 </body>
+<footer> </footer>
 
 </html>
