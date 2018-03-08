@@ -9,26 +9,36 @@ function shortenUrl(){
   http.onload = function () {
     var element = document.getElementById("url");
     
-    element.classList.remove("fade-small-text");
-    setTimeout(function() {
-      element.classList.add("fade-small-text");
-    },1);
-    
     let url = JSON.parse(this.responseText).id;
     element.innerHTML = url ? url : 'Not a valid URL';  
     
-    //copy the url from the DOM
+    resetClassForAnimations(element);
+    copyToClipboard(element);
+  };
+
+  sendUrl(http);  
+}
+
+function sendUrl(http) {
+  chrome.tabs.query({
+    active: true,
+    lastFocusedWindow: true
+  }, function(tabs) {
+    var tab = tabs[0];
+    http.send(`{"longUrl": "${tab.url}"}`);
+  });
+}
+
+function copyToClipboard(element) {
     var range = document.createRange();
     range.selectNode(element);
     window.getSelection().addRange(range);
     document.execCommand("copy");
-  };
-  chrome.tabs.query({
-      active: true,
-      lastFocusedWindow: true
-    }, function(tabs) {
-    // and use that tab to fill in out title and url
-      var tab = tabs[0];
-      http.send(`{"longUrl": "${tab.url}"}`);
-  });
+}
+
+function resetClassForAnimations(element){
+  element.classList.remove("fade-small-text");
+  setTimeout(function() {
+    element.classList.add("fade-small-text");
+  },1);
 }

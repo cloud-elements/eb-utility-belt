@@ -12,8 +12,8 @@
   },
   "permissions": [
 	  "storage",
-     "activeTab",
-     "tabs",
+    "activeTab",
+    "tabs",
     "https://api.cloud.elements.com/",
     "https://staging.cloud.elements.com/",
     "https://snapshot.cloud.elements.com/"
