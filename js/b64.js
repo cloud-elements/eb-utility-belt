@@ -1,5 +1,5 @@
 function setValue(body) {
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('i/o');
     if (body) {
         outputMsg.value = body;
     } else {
@@ -8,9 +8,9 @@ function setValue(body) {
 }
 
 function encodeB64() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('i/o').value;
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "i/o": inputMsg
     });
 
     var body = null;
@@ -20,7 +20,7 @@ function encodeB64() {
                 return String.fromCharCode('0x' + p1);
             }));
     } catch (ignoreIt) {
-        console.log(ignoreIt);
+        console.warn(ignoreIt);
     }
 
     setValue(body);
@@ -28,9 +28,9 @@ function encodeB64() {
 
 
 function decodeB64() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('i/o').value;
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "i/o": inputMsg
     });
 
     var body = null;
@@ -39,18 +39,18 @@ function decodeB64() {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
     } catch (ignoreIt) {
-        console.log(ignoreIt);
+        console.warn(ignoreIt);
     }
 
     setValue(body);
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("inputMsg", function (items) {
+    chrome.storage.sync.get("i/o", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
             if (!items)
-                document.getElementById("inputMsg").value = items.inputMsg;
+                document.getElementById("i/o").value = items.inputMsg;
         }
     });
 }
@@ -59,8 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var encodeB64Button = document.getElementById('encodeB64');
     var decodeB64Button = document.getElementById('decodeB64');
-    var outputMsg = document.getElementById('inputMsg');
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('i/o');
 
     encodeB64Button.addEventListener('click', function () {
 

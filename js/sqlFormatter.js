@@ -8,7 +8,7 @@ function parseAndSetSql(body) {
     try {
         sql = pd.sql(body);
     } catch (ignoreIt) {
-        console.log('exception', ignoreIt);
+        console.warn('exception', ignoreIt);
     }
 
     if (sql) {

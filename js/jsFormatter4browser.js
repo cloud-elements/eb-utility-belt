@@ -13,7 +13,7 @@ function parseAndSetJs(body) {
     try {
         js = beautify(cleanUp(body), { indent_size: 2, jslint_happy: true });
     } catch (ignoreIt) {
-        console.log('exception', ignoreIt);
+        console.warn('exception', ignoreIt);
     }
 
     if (js) {

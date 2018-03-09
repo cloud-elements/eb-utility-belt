@@ -1,5 +1,5 @@
 function setValue(body) {
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('i/o');
     if (body) {
         outputMsg.value = body;
     } else {
@@ -8,9 +8,9 @@ function setValue(body) {
 }
 
 function encodeUrl() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('i/o').value;
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "i/o": inputMsg
     });
 
     var body = null;
@@ -25,9 +25,9 @@ function encodeUrl() {
 
 
 function decodeUrl() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('i/o').value;
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "i/o": inputMsg
     });
 
     var body = null;
@@ -41,21 +41,18 @@ function decodeUrl() {
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("inputMsg", function (items) {
+    chrome.storage.sync.get("i/o", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
             if (!items)
-                document.getElementById("inputMsg").value = items.inputMsg;
+                document.getElementById("i/o").value = items.inputMsg;
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var encodeUrlButton = document.getElementById('encodeUrl');
     var decodeUrlButton = document.getElementById('decodeUrl');
-    var outputMsg = document.getElementById('inputMsg');
-    var outputMsg = document.getElementById('outputMsg');
 
     encodeUrlButton.addEventListener('click', function () {
 

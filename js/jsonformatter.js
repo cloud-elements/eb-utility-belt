@@ -3,7 +3,7 @@ function parseJson(body) {
     try {
         json = JSON.parse(body);
     } catch (ignoreIt) {
-        console.log('exception', ignoreIt);
+        console.warn('exception', ignoreIt);
     }
     var outputMsg = document.getElementById('outputMsg');
     if (json) {

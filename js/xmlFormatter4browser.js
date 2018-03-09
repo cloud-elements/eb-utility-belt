@@ -9,7 +9,7 @@ function parseAndSetXml(body) {
     try {
         xml = pd.xml(body, true);
     } catch (ignoreIt) {
-        console.log('exception', ignoreIt);
+        console.warn('exception', ignoreIt);
     }
 
     if (xml != body) {
