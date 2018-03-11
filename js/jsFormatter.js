@@ -2,10 +2,19 @@ var beautify = require('js-beautify').js_beautify;
 
 function cleanUp(body) {
     body = body.replace(new RegExp("''", 'g'), "'");
-    return body.replace(/(?:\r\n|\r|\\n)/g, "  "); // just \n doesn't work :[
+    // Here we're trying to handle comments for js-beautify - which...doesn't :[
+    body = body.split('\\n').map(line => {
+        if (line.includes('//')) {
+            line = line.replace('\/\/', '/*');
+            line = line.concat('*/');
+        }
+        return line;
+    }).join('  ');
+    // body.replace(/(?:\r\n|\r|\\n)/g, "  "); // just \n doesn't work :[
+    return body;
 }
 
-// Used browserify jsFormatter.js > jsFormatter4browser.js to get a browser compatible version...
+// Used browserify ./js/jsFormatter.js > ./js/jsFormatter4browser.js to get a browser compatible version...
 function parseAndSetJs(body) {
     var js = null;
     var outputMsg = document.getElementById('outputMsg');
