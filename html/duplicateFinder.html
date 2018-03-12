@@ -1,0 +1,65 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <script src="../js/duplicateFinder.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Google Extension</title>
+    <meta name="description" content="Atuls Google Extension">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .wrapper button {
+            width: 50%;
+            margin: 10px 0;
+            background-color: #44c8f5;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .wrapper input,
+        .wrapper textarea {
+            margin: 5px 0;
+        }
+
+        .back {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .back a.button {
+            width: 10%;
+            position: absolute;
+            right: 5px;
+            /* margin: 10px 0; */
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 7px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <a id="formatters" href="./debugIndex.html" class="button">Back</a>
+    </div>
+    <div class="wrapper">
+        <h1>Duplicate Finder</h1>
+        <label name="pk">Unique Key Path:</label>
+        <input id="pk" type="text" name="pk" />
+        <textarea id="inputMsg1" rows="4" cols="50" placeholder="Array Input 1"></textarea>
+        <textarea id="inputMsg2" rows="4" cols="50" placeholder="Array Input 2"></textarea>
+        <hr />
+        <textarea id="outputMsg" rows="4" cols="50" placeholder="Output"></textarea>
+        <button id="duplicate" type="button">Find Duplicates</button>
+    </div>
+</body>
+
+</html>
