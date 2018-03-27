@@ -1,5 +1,16 @@
 window.onload = function() { 
   document.getElementById("url-shortener").addEventListener("click", shortenUrl); 
+  document.getElementById("clean-cache").addEventListener("click", cleanCache);
+}
+
+function cleanCache() {
+  chrome.storage.sync.clear(() => {
+    console.log('clearing cache', chrome.runtime.error);
+    var element = document.getElementById("url");
+
+    element.innerHTML = chrome.runtime.error ? 'Error cleaning cache' : 'Cache cleared';
+    resetClassForAnimations(element);
+  });
 }
 
 function shortenUrl(){

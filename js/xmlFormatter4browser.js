@@ -1,10 +1,10 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 var pd = require('pretty-data').pd;
 
-// Used browserify xmlFormatter.js > xmlFormatter4browser.js to get a browser compatible version...
+// Used browserify ./js/xmlFormatter.js > ./js/xmlFormatter4browser.js to get a browser compatible version...
 function parseAndSetXml(body) {
     var xml = null;
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('outputMsg-xml');
 
     try {
         xml = pd.xml(body, true);
@@ -20,30 +20,27 @@ function parseAndSetXml(body) {
 }
 
 function formatXml() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('inputMsg-xml').value;
 
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "inputMsg-xml": inputMsg
     });
 
     parseAndSetXml(inputMsg);
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("inputMsg", function (items) {
+    chrome.storage.sync.get("inputMsg-xml", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
-                document.getElementById("inputMsg").value = items.inputMsg;
+            if (items['inputMsg-xml'])
+                document.getElementById("inputMsg-xml").value = items['inputMsg-xml'];
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var formatXmlButton = document.getElementById('formatXml');
-    var outputMsg = document.getElementById('inputMsg');
-    var outputMsg = document.getElementById('outputMsg');
 
     formatXmlButton.addEventListener('click', function () {
         chrome.tabs.getSelected(null, function (tab) {

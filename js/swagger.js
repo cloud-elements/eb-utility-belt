@@ -5,7 +5,7 @@ function generateSwagger() {
 	var elementKey = document.getElementById('elementKey').value;
 	var objectName = document.getElementById('objectName').value;
 	var resourceName = document.getElementById('resourceName').value;
-	var outputMsg = document.getElementById('outputMsg');
+	var outputMsg = document.getElementById('outputMsg-swagger');
 
 	chrome.storage.sync.set({
 		"modelName": modelName
@@ -36,39 +36,37 @@ window.onload = function () {
 	chrome.storage.sync.get("modelName", function (items) {
 		if (!chrome.runtime.error) {
 			console.log(items);
-			if (!items)
+			if (items.modelName)
 				document.getElementById("modelName").value = items.modelName;
 		}
 	});
 	chrome.storage.sync.get("objectName", function (items) {
 		if (!chrome.runtime.error) {
 			console.log(items);
-			if (!items)
+			if (items.objectName)
 				document.getElementById("objectName").value = items.objectName;
 		}
 	});
 	chrome.storage.sync.get("elementKey", function (items) {
 		if (!chrome.runtime.error) {
 			console.log(items);
-			if (!items)
+			if (items.elementKey)
 				document.getElementById("elementKey").value = items.elementKey;
 		}
 	});
 	chrome.storage.sync.get("resourceName", function (items) {
 		if (!chrome.runtime.error) {
 			console.log(items);
-			if (!items)
+			if (items.resourceName)
 				document.getElementById("resourceName").value = items.resourceName;
 		}
 	});
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
 	var checkPageButton = document.getElementById('generateSwagger');
-	var outputMsg = document.getElementById('outputMsg');
-	checkPageButton.addEventListener('click', function () {
 
+	checkPageButton.addEventListener('click', function () {
 		chrome.tabs.getSelected(null, function (tab) {
 			generateSwagger();
 		});

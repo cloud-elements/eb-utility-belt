@@ -1,5 +1,5 @@
 function setValue(body) {
-    var outputMsg = document.getElementById('i/o');
+    var outputMsg = document.getElementById('i/o-b64');
     if (body) {
         outputMsg.value = body;
     } else {
@@ -8,9 +8,9 @@ function setValue(body) {
 }
 
 function encodeB64() {
-    var inputMsg = document.getElementById('i/o').value;
+    var inputMsg = document.getElementById('i/o-b64').value;
     chrome.storage.sync.set({
-        "i/o": inputMsg
+        "i/o-b64": inputMsg
     });
 
     var body = null;
@@ -28,9 +28,9 @@ function encodeB64() {
 
 
 function decodeB64() {
-    var inputMsg = document.getElementById('i/o').value;
+    var inputMsg = document.getElementById('i/o-b64').value;
     chrome.storage.sync.set({
-        "i/o": inputMsg
+        "i/o-b64": inputMsg
     });
 
     var body = null;
@@ -46,29 +46,25 @@ function decodeB64() {
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("i/o", function (items) {
+    chrome.storage.sync.get("i/o-b64", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
-                document.getElementById("i/o").value = items.inputMsg;
+            if (items['i/o-b64'])
+                document.getElementById("i/o-b64").value = items['i/o-b64'];
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var encodeB64Button = document.getElementById('encodeB64');
     var decodeB64Button = document.getElementById('decodeB64');
-    var outputMsg = document.getElementById('i/o');
 
     encodeB64Button.addEventListener('click', function () {
-
         chrome.tabs.getSelected(null, function (tab) {
             encodeB64();
         });
     }, false);
     decodeB64Button.addEventListener('click', function () {
-
         chrome.tabs.getSelected(null, function (tab) {
             decodeB64();
         });

@@ -5,7 +5,7 @@ function parseJson(body) {
     } catch (ignoreIt) {
         console.warn('exception', ignoreIt);
     }
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('outputMsg-json');
     if (json) {
         outputMsg.value = JSON.stringify(json, 0, 2);
     } else {
@@ -14,33 +14,29 @@ function parseJson(body) {
 }
 
 function formatJson() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('inputMsg-json').value;
 
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "inputMsg-json": inputMsg
     });
 
     parseJson(inputMsg);
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("inputMsg", function (items) {
+    chrome.storage.sync.get("inputMsg-json", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
-                document.getElementById("inputMsg").value = items.inputMsg;
+            if (items['inputMsg-json'])
+                document.getElementById("inputMsg-json").value = items['inputMsg-json'];
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var formatJsonButton = document.getElementById('formatJson');
-    var outputMsg = document.getElementById('inputMsg');
-    var outputMsg = document.getElementById('outputMsg');
 
     formatJsonButton.addEventListener('click', function () {
-
         chrome.tabs.getSelected(null, function (tab) {
             formatJson();
         });

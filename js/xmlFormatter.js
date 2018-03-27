@@ -1,9 +1,9 @@
 var pd = require('pretty-data').pd;
 
-// Used browserify xmlFormatter.js > xmlFormatter4browser.js to get a browser compatible version...
+// Used browserify ./js/xmlFormatter.js > ./js/xmlFormatter4browser.js to get a browser compatible version...
 function parseAndSetXml(body) {
     var xml = null;
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('outputMsg-xml');
 
     try {
         xml = pd.xml(body, true);
@@ -19,30 +19,27 @@ function parseAndSetXml(body) {
 }
 
 function formatXml() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('inputMsg-xml').value;
 
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "inputMsg-xml": inputMsg
     });
 
     parseAndSetXml(inputMsg);
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("inputMsg", function (items) {
+    chrome.storage.sync.get("inputMsg-xml", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
-                document.getElementById("inputMsg").value = items.inputMsg;
+            if (items['inputMsg-xml'])
+                document.getElementById("inputMsg-xml").value = items['inputMsg-xml'];
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var formatXmlButton = document.getElementById('formatXml');
-    var outputMsg = document.getElementById('inputMsg');
-    var outputMsg = document.getElementById('outputMsg');
 
     formatXmlButton.addEventListener('click', function () {
         chrome.tabs.getSelected(null, function (tab) {

@@ -17,7 +17,7 @@ function cleanUp(body) {
 // Used browserify ./js/jsFormatter.js > ./js/jsFormatter4browser.js to get a browser compatible version...
 function parseAndSetJs(body) {
     var js = null;
-    var outputMsg = document.getElementById('outputMsg');
+    var outputMsg = document.getElementById('outputMsg-js');
     try {
         js = beautify(cleanUp(body), { indent_size: 2, jslint_happy: true });
     } catch (ignoreIt) {
@@ -32,30 +32,27 @@ function parseAndSetJs(body) {
 }
 
 function formatJs() {
-    var inputMsg = document.getElementById('inputMsg').value;
+    var inputMsg = document.getElementById('inputMsg-js').value;
 
     chrome.storage.sync.set({
-        "inputMsg": inputMsg
+        "inputMsg-js": inputMsg
     });
 
     parseAndSetJs(inputMsg);
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("inputMsg", function (items) {
+    chrome.storage.sync.get("inputMsg-js", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
-                document.getElementById("inputMsg").value = items.inputMsg;
+            if (items['inputMsg-js'])
+                document.getElementById("inputMsg-js").value = items['inputMsg-js'];
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var formatJsButton = document.getElementById('formatJs');
-    var outputMsg = document.getElementById('inputMsg');
-    var outputMsg = document.getElementById('outputMsg');
 
     formatJsButton.addEventListener('click', function () {
         chrome.tabs.getSelected(null, function (tab) {

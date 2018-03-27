@@ -2,19 +2,19 @@ var he = require('he');
 const ceUtils = require('./ce-utils');
 
 function setValue(body) {
-    var outputMsg = document.getElementById('i/o');
+    var outputMsg = document.getElementById('i/o-html');
     if (body) {
         outputMsg.value = body;
     } else {
-        outputMsg.value = 'Invalid Base 64 input';
+        outputMsg.value = 'Invalid HTML input';
     }
 }
 
 // Used browserify ./js/html.js > ./js/html4browser.js to get a browser compatible version...
 function encodeHtml() {
-    var inputMsg = document.getElementById('i/o').value;
+    var inputMsg = document.getElementById('i/o-html').value;
     chrome.storage.sync.set({
-        "i/o": inputMsg
+        "i/o-html": inputMsg
     });
 
     var body = null;
@@ -29,9 +29,9 @@ function encodeHtml() {
 
 
 function decodeHtml() {
-    var inputMsg = document.getElementById('i/o').value;
+    var inputMsg = document.getElementById('i/o-html').value;
     chrome.storage.sync.set({
-        "i/o": inputMsg
+        "i/o-html": inputMsg
     });
 
     var body = null;
@@ -50,17 +50,16 @@ function decodeHtml() {
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("i/o", function (items) {
+    chrome.storage.sync.get("i/o-html", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
-                document.getElementById("i/o").value = items.inputMsg;
+            if (items['i/o-html'])
+                document.getElementById("i/o-html").value = items['i/o-html'];
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var encodeHtmlButton = document.getElementById('encodeHtml');
     var decodeHtmlButton = document.getElementById('decodeHtml');
 
