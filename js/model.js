@@ -3,9 +3,8 @@ function sendRequest(domain, objectName, data, userKey, orgKey) {
     // var url = `https://api-cloud--elements-com-7xyzofww7i3b.runscope.net/elements/api-v2/models/${objectName}/schema`;
     var url = `${domain}/elements/api-v2/models/${objectName}/schema`;
     http.open("POST", url, true);
-    var auth = "User " + userKey + ", Organization " + orgKey;
 
-    http.setRequestHeader("Authorization", auth);
+    http.setRequestHeader("Authorization", `User ${userKey}, Organization ${orgKey}`);
     http.withCredentials = true;
     http.setRequestHeader("content-type", "application/json");
     http.setRequestHeader("accept", "application/json");

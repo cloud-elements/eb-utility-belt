@@ -65,14 +65,13 @@ window.onload = function () {
     chrome.storage.sync.get("pk", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);
-            if (!items)
+            if (items.pk)
                 document.getElementById("pk").value = items.pk;
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
     var duplicateButton = document.getElementById('duplicate');
 
     duplicateButton.addEventListener('click', function () {
