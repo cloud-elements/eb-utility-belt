@@ -1,14 +1,3 @@
-const isJson = (body) => {
-    try {
-        JSON.parse(body);
-    } catch (ignore) {
-        console.warn(ignore, body);
-        return false;
-    }
-
-    return true;
-}
-
 function sendRequest(domain, objectName, data, userKey, orgKey) {
     var http = new XMLHttpRequest();
     // var url = `https://api-cloud--elements-com-7xyzofww7i3b.runscope.net/elements/api-v2/models/${objectName}/schema`;
@@ -24,11 +13,8 @@ function sendRequest(domain, objectName, data, userKey, orgKey) {
     http.onreadystatechange = function () { //Call a function when the state changes.
         if (http.readyState == 4 && http.status == 200) {
             var outputMsg = document.getElementById('outputMsg-model');
-            var bod = http.responseText;
-            if (isJson(bod)) {
-                bod = JSON.stringify(JSON.parse(bod), 0, 2);
-            }
-            outputMsg.value = bod;
+
+            outputMsg.value = JSON.stringify(JSON.parse(http.responseText), 0, 2);
         }
     }
     http.send(data)
