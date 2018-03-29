@@ -3,8 +3,11 @@
     --secondary-color: rgb(77, 130, 191);
     --tertiary-color: rgb(23, 35, 48);
     --text-color: rgb(51, 51, 51);
+    --text-color-light: rgb(209, 209, 209);
     --white-color: white;
     --line-color: rgb(209, 209, 209);
+    --background-light: rgb(225, 225, 225);
+    --background-dark: rgb(50, 50, 50);
     --success-color: rgb(91, 189, 141);
 }
 
@@ -93,6 +96,10 @@ body {
     font-size: 130%;
 }
 
+.button-small {
+    font-size: 80%;
+}
+
 .list-navigation .pure-menu-link {
   font-size: 16px;
   padding: 12px;
@@ -109,6 +116,42 @@ body {
   flex-direction: column;
 }
 
+.output-textfield {
+  margin: 10px 0;
+}
+
+.output-textfield .toolbar {
+  background-color: var(--background-dark);
+  justify-content: space-between;
+}
+
+.output-textfield .toolbar p {
+  margin: 5px;
+  letter-spacing: normal;
+  color: var(--text-color-light);
+}
+
+.output-textfield .toolbar button{
+  opacity: .4;
+  background-color: transparent;
+  color: var(--white-color);
+}
+
+.output-textfield .toolbar button:hover {
+  opacity: 1;
+  background-color: var(--secondary-color);
+}
+
+.output-textfield textarea,
+.output-textfield textarea[readonly] {
+  border: none !important;
+  background-color: var(--background-dark);
+  margin: 0 !important;
+  width: 100%;
+  border-radius: 0;
+  color: var(--white-color);
+  box-shadow: none;
+}
 
 
 
