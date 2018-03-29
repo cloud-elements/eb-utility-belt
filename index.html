@@ -7,59 +7,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="Atuls Google Extension">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/styles.css">
-    <style>
-        .wrapper {
-            width: 300px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/css/styles.css"> -->
+    <link rel="stylesheet" href="/css/pureovewrite.css">
 
-        .wrapper a.button {
-            width: 90%;
-            margin: 10px 0;
-            background-color: #44c8f5;
-            color: #ffffff;
-            padding: 10px;
-            text-decoration: none;
-        }
-    </style>
 </head>
 
-<body>
-    <div class="row">
-        <div class="column">
-            <h1>CE EB Utils</h1> 
-        </div>
-        <div>
-            <div class="column"> 
-                <a href="https://google.com" id="shortener-wrapper">
-                    <img id="url-shortener" src="/resources/linkclipboard.png" width="15" height="15" alt="URL Shortener">
-                    <script type="text/javascript" src="js/indexUtils.js"></script>
-                </a>
-                <button id="cleanup-cache"> 
-                    <img id="clean-cache" src="/resources/cleaner.png" width="20" height="20" alt="Cache Cleaner">
-                    <script type="text/javascript" src="js/indexUtils.js"></script>
-                </button>
-            </div>
-            <div class="column fade-small-text" id="url"> </div>
-        </div>
+<body class="pure-u-1">
+    <div class="header">
+      <h1 class="title">CE EB Utils</h1>
+      <div class="toolbar align-items-right pure-button-group" role="group">
+        <div class="column fade-small-text" id="url"></div>
+        <button class="pure-button" id="url-shortener" alt="URL Shortener">
+            <i class="fa fa-link fa-lg"></i>
+            <script type="text/javascript" src="js/indexUtils.js"></script>
+        </button>
+        <button class="button-primary pure-button" id="cleanup-cache">
+            <img id="clean-cache" class="svg" src="/resources/brush.svg" alt="Cache Cleaner">
+            <script type="text/javascript" src="js/indexUtils.js"></script>
+        </button>
+      </div>
     </div>
-    <div class="wrapper">
-        <a id="swaggermenu" href="./html/swagger.html" class="button">Swagger</a>
-    </div>
-    <div class="wrapper">
-        <a id="modelmenu" href="./html/model.html" class="button">Models</a>
-    </div>
-    <div class="wrapper">
-        <a id="formatters" href="./html/formatterIndex.html" class="button">Formatters</a>
-    </div>
-    <div class="wrapper">
-        <a id="converters" href="./html/converterIndex.html" class="button">Converters</a>
-    </div>
-    <div class="wrapper">
-        <a id="debugMenu" href="./html/debugIndex.html" class="button">Debug</a>
+    <div class="list-navigation pure-menu custom-restricted-width">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+          <a id="swaggermenu" href="./html/swagger.html" class="pure-menu-link">
+            Swagger
+            <i class="fa fa-angle-right fa-lg"></i>
+          </a>
+        </li>
+        <li class="pure-menu-item">
+            <a id="modelmenu" href="./html/model.html" class="pure-menu-link">
+              Models
+              <i class="fa fa-angle-right fa-lg"></i>
+            </a>
+        </li>
+        <li class="pure-menu-item">
+            <a id="formatters" href="./html/formatterIndex.html" class="pure-menu-link">
+              Formatters
+              <i class="fa fa-angle-right fa-lg"></i>
+            </a>
+        </li>
+        <li class="pure-menu-item">
+            <a id="converters" href="./html/converterIndex.html" class="pure-menu-link">
+              Converters
+              <i class="fa fa-angle-right fa-lg"></i>
+            </a>
+        </li>
+        <li class="pure-menu-item">
+            <a id="debugMenu" href="./html/debugIndex.html" class="pure-menu-link">
+              Debug
+              <i class="fa fa-angle-right fa-lg"></i>
+            </a>
+        </li>
+      </ul>
     </div>
 </body>
 <footer> </footer>

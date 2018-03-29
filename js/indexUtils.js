@@ -1,5 +1,5 @@
-window.onload = function() { 
-  document.getElementById("url-shortener").addEventListener("click", shortenUrl); 
+window.onload = function() {
+  document.getElementById("url-shortener").addEventListener("click", shortenUrl);
   document.getElementById("clean-cache").addEventListener("click", cleanCache);
 }
 
@@ -19,15 +19,15 @@ function shortenUrl(){
   http.setRequestHeader("Content-Type", "application/json")
   http.onload = function () {
     var element = document.getElementById("url");
-    
+
     let url = JSON.parse(this.responseText).id;
-    element.innerHTML = url ? url : 'Not a valid URL';  
-    
+    element.innerHTML = url ? url : 'Not a valid URL';
+
     resetClassForAnimations(element);
     copyToClipboard(element);
   };
 
-  sendUrl(http);  
+  sendUrl(http);
 }
 
 function sendUrl(http) {

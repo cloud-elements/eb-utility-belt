@@ -8,54 +8,28 @@
     <title>Google Extension</title>
     <meta name="description" content="Atuls Google Extension">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-
-        .wrapper button {
-            width: 50%;
-            margin: 10px 0;
-            background-color: #44c8f5;
-            color: #ffffff;
-            padding: 10px;
-        }
-
-        .wrapper input,
-        .wrapper textarea {
-            margin: 5px 0;
-        }
-
-        .back {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .back a.button {
-            width: 10%;
-            position: absolute;
-            right: 5px;
-            /* margin: 10px 0; */
-            background-color: #ff0000;
-            color: #ffffff;
-            padding: 7px;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/pureovewrite.css">
 </head>
 
-<body>
-    <div class="back">
-        <a id="formatters" href="./formatterIndex.html" class="button">Back</a>
-    </div>
-    <div class="wrapper">
-        <h1>JS Formatter</h1>
-        <textarea id="inputMsg-js" rows="4" cols="50" placeholder="Input"></textarea>
-        <textarea id="outputMsg-js" rows="4" cols="50" placeholder="Output"></textarea>
-        <button id="formatJs" type="button">Format</button>
-    </div>
+<body class="pure-u-1">
+  <div class="header">
+    <h1 class="title with-navigation">
+      <a id="formatters" href="./formatterIndex.html" class="pure-button">
+        <i class="fa fa-angle-left fa-sm"></i>
+        Back
+      </a>
+      JS Formatter
+    </h1>
+  </div>
+  <div class="pure-form pure-form-stacked">
+    <textarea id="inputMsg-js" rows="4" cols="50" placeholder="Input"></textarea>
+
+    <textarea id="outputMsg-js" rows="4" cols="50" placeholder="Output"></textarea>
+
+    <button class="button-primary button-large pure-button" id="formatJs" type="button">Format</button>
+  </div>
 </body>
 
 </html>

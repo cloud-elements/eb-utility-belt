@@ -1,0 +1,136 @@
+:root {
+    --primary-color: rgb(68, 200, 245);
+    --secondary-color: rgb(77, 130, 191);
+    --tertiary-color: rgb(23, 35, 48);
+    --text-color: rgb(51, 51, 51);
+    --white-color: white;
+    --line-color: rgb(209, 209, 209);
+    --success-color: rgb(91, 189, 141);
+}
+
+body {
+  min-width: 300px;
+  padding: 0;
+  margin: 0;
+  min-height: 200px;
+}
+
+.header {
+  border-bottom: 1px solid var(--line-color);
+  padding: 0;
+}
+
+.title {
+  background-color: var(--tertiary-color);
+  padding: 10px;
+  font-size: 14px;
+  color: var(--white-color);
+  margin: 0;
+}
+
+.title.with-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.title.with-navigation button,
+.title.with-navigation a {
+  font-size: 12px;
+  margin: -5px 10px -5px -5px;
+}
+
+.toolbar,
+.footer-group {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.toolbar.align-items-left {
+  justify-content: flex-start;
+}
+
+.toolbar.align-items-right {
+  justify-content: flex-end;
+}
+
+.footer-group {
+  flex-direction: row;
+  align-items: stretch;
+}
+.footer-group button {
+  flex: 1;
+}
+
+.button-success,
+.button-error,
+.button-warning,
+.button-primary {
+    color: var(--white-color);
+    border-radius: 2px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success .svg,
+.button-error .svg,
+.button-warning .svg,
+.button-primary .svg {
+  filter: invert(1);
+  width: 16px;
+  margin: 0px 0 -4px 0;
+}
+
+.button-primary {
+  background: var(--primary-color);
+}
+
+.button-success {
+  background: var(--success-color);
+}
+
+.button-large {
+    font-size: 130%;
+}
+
+.list-navigation .pure-menu-link {
+  font-size: 16px;
+  padding: 12px;
+}
+
+.pure-menu-link i.fa {
+  float: right;
+}
+
+
+.pure-form {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+.fade-small-text {
+  font-size: 15px;
+  opacity: 0;
+  color: #1aa3ff;
+  animation-name: faded;
+  animation-delay: .5s;
+  animation-duration: 6s;
+  position: absolute;
+  right: 100px;
+  top: 5px;
+  display: block;
+  letter-spacing: normal
+}
+
+@keyframes faded {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
