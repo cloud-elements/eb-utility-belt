@@ -39,14 +39,15 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var formatXmlButton = document.getElementById('formatXml');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-xml')
+    element.select();
+    document.execCommand("copy");
+}
 
-    formatXmlButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            formatXml();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
+    document.getElementById('formatXml').addEventListener('click', formatXml);
 }, false);
 },{"pretty-data":2}],2:[function(require,module,exports){
 /**

@@ -52,14 +52,15 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var formatJsButton = document.getElementById('formatJs');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-js')
+    element.select();
+    document.execCommand("copy");
+}
 
-    formatJsButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            formatJs();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('formatJs').addEventListener('click', formatJs);
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
 }, false);
 },{"js-beautify":2}],2:[function(require,module,exports){
 /*

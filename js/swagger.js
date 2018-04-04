@@ -63,12 +63,13 @@ window.onload = function () {
 	});
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-	var checkPageButton = document.getElementById('generateSwagger');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-swagger');
+    element.select();
+    document.execCommand("copy");
+}
 
-	checkPageButton.addEventListener('click', function () {
-		chrome.tabs.getSelected(null, function (tab) {
-			generateSwagger();
-		});
-	}, false);
+document.addEventListener('DOMContentLoaded', function () {
+	document.getElementById("copyoutput").addEventListener("click", copyOutput);
+	document.getElementById('generateSwagger').addEventListener('click', generateSwagger);
 }, false);

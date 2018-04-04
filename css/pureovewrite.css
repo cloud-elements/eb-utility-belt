@@ -5,6 +5,7 @@
     --text-color: rgb(51, 51, 51);
     --text-color-light: rgb(209, 209, 209);
     --white-color: white;
+    --black-color: black;
     --line-color: rgb(209, 209, 209);
     --background-light: rgb(225, 225, 225);
     --background-dark: rgb(50, 50, 50);
@@ -153,6 +154,42 @@ body {
   box-shadow: none;
 }
 
+.input-textfield {
+  margin: 10px 0;
+}
+
+.input-textfield .toolbar {
+  background-color: var(--background-light);
+  justify-content: space-between;
+}
+
+.input-textfield .toolbar p {
+  margin: 5px;
+  letter-spacing: normal;
+  color: var(--text-color);
+}
+
+.input-textfield .toolbar button{
+  opacity: .4;
+  background-color: transparent;
+  color: var(--black-color);
+}
+
+.input-textfield .toolbar button:hover {
+  opacity: 1;
+  background-color: var(--secondary-color);
+}
+
+.input-textfield textarea,
+.input-textfield textarea[readonly] {
+  border: none !important;
+  background-color: var(--background-light);
+  margin: 0 !important;
+  width: 100%;
+  border-radius: 0;
+  color: var(--black-color);
+  box-shadow: none;
+}
 
 
 .fade-small-text {

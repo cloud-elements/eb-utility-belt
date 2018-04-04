@@ -27,10 +27,27 @@
     <label for="pk">Unique Key Path</label>
     <input id="pk" type="text" name="pk">
 
-    <textarea id="inputMsg1" rows="4" cols="50" placeholder="Array Input 1"></textarea>
-    <textarea id="inputMsg2" rows="4" cols="50" placeholder="Array Input 2"></textarea>
+    <div class="input-textfield pure-u-1">
+      <div class="toolbar align-items-right pure-button-group" role="group">
+        <p><b>Array Input 1</b></p>
+      </div>
+      <textarea id="inputMsg1" rows="5" cols="50" class="input-textfield"></textarea>      
+    </div>
+
+    <div class="input-textfield pure-u-1">
+      <div class="toolbar align-items-right pure-button-group" role="group">
+        <p><b>Array Input 2</b></p>
+      </div>
+      <textarea id="inputMsg2" rows="5" cols="50" class="input-textfield"></textarea>      
+    </div>
+
     <hr />
-    <textarea id="outputMsg" rows="4" cols="50" placeholder="Output"></textarea>
+    <div class="output-textfield pure-u-1">
+      <div class="toolbar align-items-right pure-button-group" role="group">
+        <p><b>Output</b></p>
+      </div>
+      <textarea id="outputMsg" rows="5" cols="50" class="output-textfield"></textarea>
+    </div>
     <button class="button-primary button-large pure-button" id="duplicate" type="button">
       Find Duplicates
     </button>

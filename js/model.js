@@ -85,12 +85,13 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var generateModelButton = document.getElementById('generateModel');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-model')
+    element.select();
+    document.execCommand("copy");
+}
 
-    generateModelButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            generateModel();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
+    document.getElementById('generateModel').addEventListener('click', generateModel);
 }, false);

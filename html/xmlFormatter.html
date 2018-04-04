@@ -24,9 +24,23 @@
     </h1>
   </div>
   <div class="pure-form pure-form-stacked">
-    <textarea id="inputMsg-xml" rows="4" cols="50" placeholder="Input"></textarea>
+    <div class="input-textfield pure-u-1">
+      <div class="toolbar align-items-right pure-button-group" role="group">
+        <p><b>Input</b></p>
+      </div>
+      <textarea id="inputMsg-xml" rows="5" cols="50" class="input-textfield"></textarea>      
+    </div>
 
-    <textarea id="outputMsg-xml" rows="4" cols="50" placeholder="Output"></textarea>
+    <div class="output-textfield pure-u-1">
+      <div class="toolbar align-items-right pure-button-group" role="group">
+        <p><b>Output</b></p>
+        <button class="button-small pure-button" alt="copy" id="copyoutput">
+          <i class="fa fa-copy fa-lg"></i>
+          Copy
+        </button>
+      </div>
+      <textarea id="outputMsg-xml" rows="5" cols="50" class="output-textfield"></textarea>
+    </div>
 
     <button class="button-primary button-large pure-button" id="formatXml" type="button">Format</button>
   </div>

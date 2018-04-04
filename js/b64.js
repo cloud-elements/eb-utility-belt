@@ -55,18 +55,14 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var encodeB64Button = document.getElementById('encodeB64');
-    var decodeB64Button = document.getElementById('decodeB64');
+function copyOutput() {
+    var element = document.getElementById('i/o-b64')
+    element.select();
+    document.execCommand("copy");
+}
 
-    encodeB64Button.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            encodeB64();
-        });
-    }, false);
-    decodeB64Button.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            decodeB64();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
+    document.getElementById('encodeB64').addEventListener('click', encodeB64);
+    document.getElementById('decodeB64').addEventListener('click', decodeB64);
 }, false);

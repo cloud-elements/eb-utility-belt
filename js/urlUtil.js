@@ -50,18 +50,14 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var encodeUrlButton = document.getElementById('encodeUrl');
-    var decodeUrlButton = document.getElementById('decodeUrl');
+function copyOutput() {
+    var element = document.getElementById('i/o-url')
+    element.select();
+    document.execCommand("copy");
+}
 
-    encodeUrlButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            encodeUrl();
-        });
-    }, false);
-    decodeUrlButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            decodeUrl();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
+    document.getElementById('encodeUrl').addEventListener('click', encodeUrl);
+    document.getElementById('decodeUrl').addEventListener('click', decodeUrl);
 }, false);

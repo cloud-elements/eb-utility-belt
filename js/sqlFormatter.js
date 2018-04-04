@@ -38,12 +38,13 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var formatSqlButton = document.getElementById('formatSql');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-sql')
+    element.select();
+    document.execCommand("copy");
+}
 
-    formatSqlButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            formatSql();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('formatSql').addEventListener('click', formatSql);
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
 }, false);

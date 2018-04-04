@@ -1,7 +1,7 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 var pd = require('pretty-data').pd;
 
-// Used browserify sqlFormatter.js > sqlFormatter4browser.js to get a browser compatible version...
+// Used browserify ./js/sqlFormatter.js > ./js/sqlFormatter4browser.js to get a browser compatible version...
 function parseAndSetSql(body) {
     var sql = null;
     var outputMsg = document.getElementById('outputMsg-sql');
@@ -39,14 +39,15 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var formatSqlButton = document.getElementById('formatSql');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-sql')
+    element.select();
+    document.execCommand("copy");
+}
 
-    formatSqlButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            formatSql();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('formatSql').addEventListener('click', formatSql);
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);
 }, false);
 },{"pretty-data":2}],2:[function(require,module,exports){
 /**

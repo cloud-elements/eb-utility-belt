@@ -33,12 +33,13 @@ window.onload = function () {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var formatJsonButton = document.getElementById('formatJson');
+function copyOutput() {
+    var element = document.getElementById('outputMsg-json')
+    element.select();
+    document.execCommand("copy");
+}
 
-    formatJsonButton.addEventListener('click', function () {
-        chrome.tabs.getSelected(null, function (tab) {
-            formatJson();
-        });
-    }, false);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('formatJson').addEventListener('click', formatJson);
+    document.getElementById("copyoutput").addEventListener("click", copyOutput);    
 }, false);
