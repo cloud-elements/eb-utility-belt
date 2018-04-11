@@ -5,7 +5,7 @@ function cleanUp(body) {
     body = body.replace(new RegExp("''", 'g'), "'");
     // Here we're trying to handle comments for js-beautify - which...doesn't :[
     body = body.split('\\n').map(line => {
-        if (line.includes('//')) {
+        if (line.includes('//') && !line.includes('\'//\'')) {
             line = line.replace('\/\/', '/*');
             line = line.concat('*/');
         }
