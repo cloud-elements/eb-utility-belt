@@ -15,12 +15,12 @@ function cleanCache() {
 
 function shortenUrl(){
   var http = new XMLHttpRequest();
-  http.open("POST", "https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyBQtXLSnFxy_q1SeFaKUHQ11bod0m8rsVc", true);
+  http.open("POST","https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyDqCKRSMead2B8Ko6MgaJqsDVdUxz2lAdQ", true);
   http.setRequestHeader("Content-Type", "application/json")
   http.onload = function () {
     var element = document.getElementById("url");
 
-    let url = JSON.parse(this.responseText).id;
+    let url = JSON.parse(this.responseText).shortLink;
     element.innerHTML = url ? url : 'Not a valid URL';
 
     resetClassForAnimations(element);
@@ -36,7 +36,8 @@ function sendUrl(http) {
     lastFocusedWindow: true
   }, function(tabs) {
     var tab = tabs[0];
-    http.send(`{"longUrl": "${tab.url}"}`);
+    http.send(`{"longDynamicLink": "https://xek99.app.goo.gl/?link=${tab.url}"}`)
+    //http.send(`{"dynamicLinkInfo": {"dynamicLinkDomain": "xek99", "link":"${tab.url}", "iosInfo":{"iosBundleId":"io.cloudelements.eb-utility-belt"} } }`);
   });
 }
 
