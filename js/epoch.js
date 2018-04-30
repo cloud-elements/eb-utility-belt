@@ -7,6 +7,22 @@ function setValue(body) {
     }
 }
 
+function convertIso() {
+    var inputMsg = document.getElementById('i/o-epoch').value;
+    chrome.storage.sync.set({
+        "i/o-epoch": inputMsg
+    });
+
+    var body = null;
+    try {
+        body = new Date(inputMsg).valueOf();
+    } catch (ignoreIt) {
+        console.warn(ignoreIt);
+    }
+
+    setValue(body);
+}
+
 function convertEpoch() {
     var inputMsg = document.getElementById('i/o-epoch').value;
     chrome.storage.sync.set({
@@ -57,4 +73,5 @@ function dateString(d) {
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("copyoutput").addEventListener("click", copyOutput);
     document.getElementById('convertepoch').addEventListener('click', convertEpoch);
+    document.getElementById('convertIso').addEventListener('click', convertIso);
 }, false);
