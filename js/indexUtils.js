@@ -36,7 +36,7 @@ function sendUrl(http) {
     lastFocusedWindow: true
   }, function(tabs) {
     var tab = tabs[0];
-    http.send(`{"longDynamicLink": "https://xek99.app.goo.gl/?link=${tab.url}", "suffix": {
+    http.send(`{"longDynamicLink": "https://xek99.app.goo.gl/?link=${encodeURIComponent(tab.url)}", "suffix": {
       "option": "SHORT"
     }}`)
     //http.send(`{"dynamicLinkInfo": {"dynamicLinkDomain": "xek99", "link":"${tab.url}", "iosInfo":{"iosBundleId":"io.cloudelements.eb-utility-belt"} } }`);
