@@ -71,13 +71,6 @@ window.onload = function () {
     });
 }
 
-function copyOutput() {
-    var element = document.getElementById('outputMsg')
-    element.select();
-    document.execCommand("copy");
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById("copyoutput").addEventListener("click", copyOutput);
     document.getElementById('duplicate').addEventListener('click', findDuplicates);
 }, false);
