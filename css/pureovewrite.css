@@ -200,7 +200,7 @@ body {
   animation-delay: .5s;
   animation-duration: 6s;
   position: absolute;
-  right: 100px;
+  left: 10px;
   top: 5px;
   display: block;
   letter-spacing: normal
