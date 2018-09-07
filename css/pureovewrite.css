@@ -19,6 +19,17 @@ body {
   min-height: 200px;
 }
 
+img {
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+}
+
+.tmpContainer {
+  display: flex;
+  flex-direction: row;
+}
+
 .header {
   border-bottom: 1px solid var(--line-color);
   padding: 0;
@@ -110,7 +121,6 @@ body {
   float: right;
 }
 
-
 .pure-form {
   padding: 12px;
   display: flex;
@@ -153,6 +163,7 @@ body {
   color: var(--white-color);
   box-shadow: none;
 }
+
 
 .input-textfield {
   margin: 10px 0;
@@ -197,8 +208,9 @@ body {
   opacity: 0;
   color: #1aa3ff;
   animation-name: faded;
-  animation-delay: .5s;
-  animation-duration: 6s;
+  animation-delay: .25s;
+  animation-duration: 8s;
+  animation-timing-function: ease-in;
   position: absolute;
   left: 10px;
   top: 5px;
