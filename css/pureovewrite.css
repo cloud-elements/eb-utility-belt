@@ -7,9 +7,11 @@
     --white-color: white;
     --black-color: black;
     --line-color: rgb(209, 209, 209);
+    --background-verylight: rgb(242, 242, 242);
     --background-light: rgb(225, 225, 225);
     --background-dark: rgb(50, 50, 50);
     --success-color: rgb(91, 189, 141);
+    --danger-color: #FF4E4E;
 }
 
 body {
@@ -117,6 +119,82 @@ img {
   padding: 12px;
 }
 
+.itemWrapper {
+  border: 1px solid grey;
+  border-radius: 4px;
+  /* padding: 5px; */
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.requestHeader {
+  background-color: lightgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  height: 24px;
+  padding: 4px;
+  align-items: center;
+}
+
+.metaInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.params {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.headers {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+
+h4 {
+  color: var(--tertiary-color);
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+pre {
+  white-space: pre;
+  word-wrap: normal;
+  max-height: 200px;
+  background-color: var(--background-verylight);
+  margin-bottom: 0px;
+  border-top: var(--background-verylight);
+  border-top-width: 1px;
+}
+
+.requestUrl {
+  flex: 1;
+}
+
+.deleteRequestButton {
+  margin-left: 20px;
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.requestBody {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.requestLists {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  padding: 4px;
+}
+
 .pure-menu-link i.fa {
   float: right;
 }
@@ -202,15 +280,24 @@ img {
   box-shadow: none;
 }
 
+.small-text {
+  font-size: 15px;
+  color: var(--secondary-color);
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  display: block;
+  letter-spacing: normal
+}
 
 .fade-small-text {
-  font-size: 15px;
-  opacity: 0;
-  color: #1aa3ff;
   animation-name: faded;
   animation-delay: .25s;
   animation-duration: 8s;
   animation-timing-function: ease-in;
+  font-size: 15px;
+  opacity: 0;
+  color: var(--secondary-color);
   position: absolute;
   left: 10px;
   top: 5px;
