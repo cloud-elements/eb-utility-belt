@@ -305,6 +305,14 @@ pre {
   letter-spacing: normal
 }
 
+footer {
+  position: fixed;
+  right: 20px;
+  bottom: 0px;
+  text-align: end;
+  opacity: .50;
+}
+
 @keyframes faded {
   from {
     opacity: 1;
