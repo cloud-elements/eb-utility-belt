@@ -10,7 +10,7 @@ function sendRequest(bucketName) {
   var http = new XMLHttpRequest();
   http.withCredentials = true;
   // var url = `http://localhost:3000/buckets`;
-  var url = `https://specio-ojuduixlzg.now.sh/buckets`;
+  var url = `https://specio-bin.now.sh/buckets`;
   http.open("POST", url, true);
   var bucket = isEmpty(bucketName) ? getRandomStr() : bucketName;
   http.withCredentials = false;
