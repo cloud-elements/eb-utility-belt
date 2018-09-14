@@ -280,6 +280,22 @@ pre {
   box-shadow: none;
 }
 
+.toolbar .search-control {
+  margin: 5px;
+  background-color: var(--background-light);
+}
+
+.toolbar .search-control .searcher {
+  width: 350px;
+}
+
+.count {
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  letter-spacing: 1px;
+}
+
 .small-text {
   font-size: 15px;
   color: var(--secondary-color);

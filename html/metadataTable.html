@@ -1,0 +1,49 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <script src="../js/metadataTable.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Google Extension</title>
+  <meta name="description" content="Atuls Google Extension">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/pureovewrite.css">
+</head>
+
+<body class="pure-u-1">
+  <div class="header">
+    <h1 class="title with-navigation">
+      <a id="metadataIndex" href="./metadataIndex.html" class="pure-button">
+        <i class="fa fa-angle-left fa-sm"></i>
+        Back
+      </a>
+      CE Production Metadata for Elements
+    </h1>
+  </div>
+  <div class="toolbar searchBar align-items-left pure-button-group" role="group">
+    <form role="search">
+      <div class="search-control">
+        <input type="search" class="searcher" id="table-search" name="q" placeholder="Search by either hub, name, key, API type or Element Type" aria-label="Search through site content">
+        <button class="searchButton">Search</button>
+      </div>
+    </form>
+    <div class="count" id="total-count"></div>
+  </div>
+  <table class="pure-table pure-table-bordered pure-table-striped">
+    <thead>
+      <tr id="headerRow">
+        <!-- Inject table headers here... <th> -->
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <!-- Inject -->
+    </tbody>
+  </table>
+</body>
+
+</html>
