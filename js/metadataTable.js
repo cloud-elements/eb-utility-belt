@@ -270,15 +270,36 @@ function getElements(cb) {
   http.send(null);
 }
 
+function clearLoader() {
+  const loaderHolder = document.getElementById('loaderHolder'),
+        loader = document.getElementById('loader');
+
+  if (loader) {
+    loaderHolder.removeChild(loader);
+  }
+}
+
+function setLoader() {
+  const loaderHolder = document.getElementById('loaderHolder'),
+        loader = document.createElement('div');
+
+  loader.className = "loader";
+  loader.id = "loader";
+  loaderHolder.appendChild(loader);
+}
+
 function init() {
+  setLoader();
   getSearchParam(searchParam => {
     console.log('search param is ', searchParam);
     getElements(elements => {
       const filteredElements = elements.filter(elementObj => filterSearch(elementObj, searchParam) && elementObj.displayOrder > 0);
+      clearLoader();
       loadTable(filteredElements);
       
       const countElement = document.getElementById('total-count');
       countElement.innerHTML = `${filteredElements.length} total element${filteredElements.length !== 1 ? 's' : ''}`;
+      
     })
   })
 }

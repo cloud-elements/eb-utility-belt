@@ -137,7 +137,7 @@ th.tableHeader {
   display: flex;
   flex-direction: row;
   justify-content: stretch;
-  height: 24px;
+  /* height: 24px; */
   padding: 4px;
   align-items: center;
 }
@@ -178,6 +178,7 @@ pre {
 
 .requestUrl {
   flex: 1;
+  overflow: auto;
 }
 
 .deleteRequestButton {
@@ -340,4 +341,24 @@ footer {
   to {
     opacity: 0;
   }
+}
+
+.loader {
+  border: 16px solid var(--line-color);
+  border-top: 16px solid var(--primary-color); /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+.loaderHolder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -289,7 +289,7 @@ function refreshSummary(url) {
     const element = document.getElementById("requestList")
     if (http.readyState == 4 && http.status == 200) {
       const requestList = JSON.parse(this.responseText);
-
+      clearLoader();
       createMultiDivElement(element, requestList.sort((a, b) => sortByCreatedDate(a, b)));
     } else {
       replaceOrAppendChild(element, emptyListItem(this.responseText));
@@ -355,17 +355,37 @@ function refreshSummaryEvent() {
   getUrl(url => refreshSummary(url));
 }
 
+function clearLoader() {
+  const loaderHolder = document.getElementById('loaderHolder'),
+        loader = document.getElementById('loader');
+
+  if (loader) {
+    loaderHolder.removeChild(loader);
+  }
+}
+
+function setLoader() {
+  const loaderHolder = document.getElementById('loaderHolder'),
+        loader = document.createElement('div');
+
+  loader.className = "loader";
+  loader.id = "loader";
+  replaceOrAppendChild(loaderHolder, loader);
+}
+
 function init() {
+  setLoader();
   getUrl(url => {
     // Set the bucketUrl at the header
     document.getElementById('requestBucketUrl').innerHTML = `Request URL: <a href="${url}">${url}</a>`.bold();
-
+    console.log('refreshing init', url);
     // Refresh the requests summary
     refreshSummary(url);
   });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  console.log('why call thrice?', document.readyState);
   init();
   document.getElementById("refreshSummary").addEventListener("click", refreshSummaryEvent);
   document.getElementById('deleteBucket').addEventListener('click', deleteBucket);
