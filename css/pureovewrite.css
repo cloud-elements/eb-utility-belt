@@ -27,6 +27,10 @@ img {
   margin-right: 10px;
 }
 
+th.tableHeader {
+  cursor: pointer;
+}
+
 .tmpContainer {
   display: flex;
   flex-direction: row;
@@ -286,7 +290,7 @@ pre {
 }
 
 .toolbar .search-control .searcher {
-  width: 350px;
+  width: 450px;
 }
 
 .count {
