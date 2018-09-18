@@ -46,7 +46,12 @@ function colorize(tokens) {
     STRING_LITERAL: 'green',
     NUMBER_LITERAL: 'blue',
     BOOLEAN_LITERAL: 'cyan',
-    NULL_LITERAL: 'white'
+    NULL_LITERAL: 'white',
+    POST: 'green',
+    GET: 'blue',
+    PATCH: 'orange',
+    PUT: 'orange',
+    DELETE: 'red'
   };
 
   return tokens.map(token => token.value.fontcolor(defaultColors[token.type])).join('');
@@ -102,6 +107,10 @@ function getTimeSince(providedTime) {
 
   return getDays(secSinceCurrent) + getHours(secSinceCurrent) + getMinutes(secSinceCurrent) + getSeconds(secSinceCurrent);
 
+}
+
+function getStyledRequestMethod(request) {
+  return colorize([{type: request.method.toUpperCase(), value: request.method.toUpperCase()}]).bold();
 }
 
 function replaceOrAppendChild(parentDiv, childDiv) {
@@ -217,7 +226,7 @@ function createRequestDiv(request) {
   containerElement.className = 'requestHeader';
 
   headerLeft.className = 'requestUrl';
-  headerLeft.innerHTML = `${request.method.toUpperCase().bold()} ${request.url}`;
+  headerLeft.innerHTML = `${getStyledRequestMethod(request)} ${request.url.italics()}`;
 
   containerElement.appendChild(headerLeft);
 

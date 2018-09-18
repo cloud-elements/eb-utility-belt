@@ -1,6 +1,5 @@
 function sendRequest(domain, objectName, data, userKey, orgKey) {
     var http = new XMLHttpRequest();
-    // var url = `https://api-cloud--elements-com-7xyzofww7i3b.runscope.net/elements/api-v2/models/${objectName}/schema`;
     var url = `${domain}/elements/api-v2/models/${objectName}/schema`;
     http.open("POST", url, true);
 
@@ -10,10 +9,11 @@ function sendRequest(domain, objectName, data, userKey, orgKey) {
     http.setRequestHeader("accept", "application/json");
 
     http.onreadystatechange = function () { //Call a function when the state changes.
+        var outputMsg = document.getElementById('outputMsg-model');
         if (http.readyState == 4 && http.status == 200) {
-            var outputMsg = document.getElementById('outputMsg-model');
-
             outputMsg.value = JSON.stringify(JSON.parse(http.responseText), 0, 2);
+        } else {
+            outputMsg.value = JSON.parse(http.responseText).message;
         }
     }
     http.send(data)
@@ -45,6 +45,30 @@ function generateModel() {
     sendRequest(domain, objectName, inputMsg, userKey, orgKey);
 }
 
+function getCached(cacheName, cb) {
+    chrome.storage.sync.get(cacheName, function (items) {
+        if (!chrome.runtime.error) {
+            if (items[cacheName]) {
+                cb(items[cacheName]);
+            } else {
+                cb(null);
+            }
+        }
+    });
+}
+
+function getCachedWithDefault(cacheName, defaultName, cb) {
+    getCached(cacheName, us => {
+        if (us) {
+            cb(us);
+        } else {
+            getCached(defaultName, defaultUs => {
+                cb(defaultUs)
+            });
+        }
+    });
+}
+
 window.onload = function () {
     chrome.storage.sync.get("domain", function (items) {
         if (!chrome.runtime.error) {
@@ -54,21 +78,28 @@ window.onload = function () {
             }
         }
     });
-    chrome.storage.sync.get("userKey", function (items) {
-        if (!chrome.runtime.error) {
-            console.log(items);
-            if (items.userKey) {
-                document.getElementById("userKey").value = items.userKey;
-            }
-        }
+    getCachedWithDefault('userKey', 'ce-eb-ub-us', uk => {
+        document.getElementById("userKey").value = uk;
     });
-    chrome.storage.sync.get("orgKey", function (items) {
-        if (!chrome.runtime.error) {
-            console.log(items);
-            if (items.orgKey)
-                document.getElementById("orgKey").value = items.orgKey;
-        }
+    // chrome.storage.sync.get("userKey", function (items) {
+    //     if (!chrome.runtime.error) {
+    //         console.log(items);
+    //         if (items.userKey) {
+    //             document.getElementById("userKey").value = items.userKey;
+    //         }
+    //     }
+    // });
+
+    getCachedWithDefault('orgKey', 'ce-eb-ub-os', ok => {
+        document.getElementById("orgKey").value = ok;
     });
+    // chrome.storage.sync.get("orgKey", function (items) {
+    //     if (!chrome.runtime.error) {
+    //         console.log(items);
+    //         if (items.orgKey)
+    //             document.getElementById("orgKey").value = items.orgKey;
+    //     }
+    // });
     chrome.storage.sync.get("inputMsg-model", function (items) {
         if (!chrome.runtime.error) {
             console.log(items);

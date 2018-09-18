@@ -1,11 +1,18 @@
 function cleanCache() {
   chrome.storage.sync.clear(() => {
     console.log('clearing cache', chrome.runtime.error);
-    var element = document.getElementById("tmp");
-
-    element.innerHTML = chrome.runtime.error ? 'Error cleaning cache' : 'Cache cleared';
-    resetClassForAnimations(element);
+    setMsgAndLogout(chrome.runtime.error ? 'Error cleaning cache' : 'Cache cleared');
   });
+}
+
+function setMsgAndLogout(msg) {
+  var element = document.getElementById("tmp");
+
+  element.innerHTML = msg;
+  resetClassForAnimations(element);
+  setTimeout(() => {
+    redirectToLogin();
+  }, 2000)
 }
 
 function sendFullScreenMsg() {
@@ -136,9 +143,49 @@ function generateEmoji() {
   http.send(null);
 }
 
+function isLoggedIn(cb) {
+  chrome.storage.sync.get("ce-eb-ub-os", function (items) {
+    if (!chrome.runtime.error) {
+      if (items['ce-eb-ub-os']) {
+        cb(true);
+      } else {
+        cb(false);
+      }
+    } else {
+      document.getElementById('tmp').innerHTML = 'Chrome runtime error';
+      console.warn(chrome.runtime.errorText);
+      cb(false);
+    }
+  });
+}
+
+function redirectToLogin() {
+  window.location.href = '/html/login.html';
+}
+
+function logoutAndRedirect() {
+  chrome.storage.sync.set({
+    'ce-eb-ub-os': null,
+    'ce-eb-ub-us': null
+  });
+
+  setMsgAndLogout('Logging out');
+}
+
+function init() {
+  isLoggedIn(isLoggedIn => {
+    if (!isLoggedIn) {
+      redirectToLogin();
+    }
+  });
+}
+
 window.onload = function() {
+  console.log('wtfdood');
+  init();
   document.getElementById("full-screen").addEventListener("click", sendFullScreenMsg);
   document.getElementById("emoji-generator").addEventListener("click", generateEmoji);
   document.getElementById("url-shortener").addEventListener("click", shortenUrl);
   document.getElementById("clean-cache").addEventListener("click", cleanCache);
+  document.getElementById("logout").addEventListener("click", logoutAndRedirect);
 }

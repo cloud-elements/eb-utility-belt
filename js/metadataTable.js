@@ -251,23 +251,41 @@ function sortBy(name, event) {
   })
 }
 
+function getSecrets(cacheName, cb) {
+  chrome.storage.sync.get(cacheName, function (items) {
+    if (!chrome.runtime.error) {
+      if (items[cacheName])
+         cb(items[cacheName]);
+    }
+  });
+}
+
+function getAuthorizationDefaults(cb) {
+  getSecrets('ce-eb-ub-us', us => {
+    getSecrets('ce-eb-ub-os', os => {
+      cb(`User ${us}, Organization ${os}`);
+    });
+  });  
+}
+
 // Hit the /elements/metadata API to get the info
 function getElements(cb) {
   let http = new XMLHttpRequest();
   // http.open("GET", `https://api.cloud-elements.com/elements/api-v2/elements?abridged=true`, true);
   http.open("GET", `https://api.cloud-elements.com/elements/api-v2/elements/metadata?pageSize=500`, true);
   http.setRequestHeader("Accept", "application/json");
-  // Don't look at these... ><
-  http.setRequestHeader("Authorization", "User ZvKz4rVisc0+RKeZQpVhfB6lIVTM3426AG2ExelcDOg=, Organization 24ec958aea1252424c4e788c4f09fa3d");
-  http.withCredentials = false;
-  http.onload = function () {
-    if (http.readyState == 4 && http.status == 200) {
-      state.elementsList = JSON.parse(this.responseText);
-      cb(state.elementsList);
-    }
-  };
 
-  http.send(null);
+  getAuthorizationDefaults(auth => {
+    http.setRequestHeader("Authorization", auth);
+    http.onload = function () {
+      if (http.readyState == 4 && http.status == 200) {
+        state.elementsList = JSON.parse(this.responseText);
+        cb(state.elementsList);
+      }
+    };
+
+    http.send(null);
+  });  
 }
 
 function clearLoader() {

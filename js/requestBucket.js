@@ -30,6 +30,7 @@ function sendRequest(bucketName) {
       } else {
         bucketUrl.value = `Error during processing bucket request`
       }
+      disableButtons(false);
     } 
   }
   http.send(JSON.stringify({ name: bucket }));
@@ -41,7 +42,7 @@ function generateBucket() {
   chrome.storage.sync.set({
       "bucketName": bucketName
   });
-
+  disableButtons(true);
   sendRequest(bucketName);
 }
 
@@ -62,6 +63,11 @@ window.onload = function () {
           }
       }
   });
+}
+
+function disableButtons(disableFlag) {
+  document.getElementById('generateBucket').disabled = disableFlag;
+  document.getElementById('inspectBucket').disabled = disableFlag;
 }
 
 const sendToTrafficInspector = () => {
