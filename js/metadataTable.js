@@ -147,12 +147,22 @@ function sort(a, b, sortBy) {
   }
 }
 
+// Make Header Pretty - remove character
+function prettyfyHeader(str, c) {
+  let headerArray = str.split(c);
+  let header = "";
+  for (i = 0; i < headerArray.length; i++) {
+    header += headerArray[i] + " ";
+  }
+  return header;
+}
+
 function getTableHeaders(headerKeys) {
   return headerKeys.map(header => {
     let tableHeaderElement = document.createElement('th');
-    tableHeaderElement.innerHTML = header;
+    tableHeaderElement.innerHTML = prettyfyHeader(header, '_');
     tableHeaderElement.addEventListener('click', e => sortBy(header));
-    tableHeaderElement.className = "tableHeader";
+    tableHeaderElement.className = "tableHeaderClickable " + header;
     return tableHeaderElement;
   });
 }
@@ -183,6 +193,7 @@ function getTableRows(elements, headerMap) {
     let tableDataElements = Object.keys(headerMap).map(header => {
       let tableDataElement = document.createElement('td');
       tableDataElement.innerHTML = getValue(element, headerMap, header);
+      tableDataElement.className = header;
       return tableDataElement;
     })
 
@@ -322,7 +333,17 @@ function init() {
   })
 }
 
+function clearSearch() {
+  window.location.href =  window.location.href.split('?')[0]
+}
+
+function printPage() {
+  window.print();
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('clearSearch').addEventListener('click', clearSearch);
+  document.getElementById('printTable').addEventListener('click', printPage);
   init();
 }, false);

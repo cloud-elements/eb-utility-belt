@@ -13,38 +13,146 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
     crossorigin="anonymous">
   <link rel="stylesheet" href="../css/pureovewrite.css">
+  <style type="text/css" media="print">
+    /* Generic Printing CSS */
+    @page { 
+      size: landscape;
+      margin: 4mm;
+    } 
+
+    a:after{content:" (" attr(href) ") ";font-size:0.5em;font-weight:normal;}
+    .noprint{
+      display: none !important;
+    } 
+
+    table { page-break-after:always }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+    /* END ---> Generic Printing CSS */
+
+    /* Makeing Fixed-Header table printable */
+    .table-wrapper {
+        width: auto;
+        overflow-x: visible;
+        height: auto;
+        overflow-y: visible;
+    }
+
+    table.fixed-header tbody {
+        display: table-row-group;
+        overflow: visible;
+        height: auto;
+    }
+
+    table.fixed-header tr {
+      display: table-row;
+    }
+
+    #metadataTable th, 
+    #metadataTable td {width: auto !important}
+  </style>
 </head>
 
-<body class="pure-u-1">
-  <div class="header">
+<body class="matadataTable">
+  <div class="header noprint">
     <h1 class="title with-navigation">
-      <a id="metadataIndex" href="./metadataIndex.html" class="pure-button">
+      <a id="metadataIndex" href="./metadataIndex.html" class="pure-button title-nav-button">
         <i class="fa fa-angle-left fa-sm"></i>
-        Back
+        <span>Back</span>
       </a>
       CE Production Metadata for Elements
     </h1>
   </div>
-  <div class="toolbar searchBar align-items-left pure-button-group" role="group">
-    <form role="search">
-      <div class="search-control">
-        <input type="search" class="searcher" id="table-search" name="q" placeholder="Search by either hub, name, key, authentication, API type or Element Type" aria-label="Search through site content">
-        <button class="searchButton">Search</button>
-      </div>
+  <div class="toolbar searchBar align-items-left noprint">
+    <form role="search" class="pure-form" >
+        <input type="search" id="table-search" name="q" placeholder="Search by name or key" aria-label="Search through site content" style="flex: 2">
+        <input list="hubs" placeholder="Hubs" style="flex: 1.5">
+        <datalist id="hubs">
+          <option value="billing" label="Billing">
+          <option value="collaboration" label="Collaboration">
+          <option value="conferencing" label="Conferencing">
+          <option value="crm" label="CRM">
+          <option value="db" label="DB">
+          <option value="documents" label="Documents">
+          <option value="ecommerce" label="eCommerce">
+          <option value="employee" label="Employee">
+          <option value="erp" label="ERP">
+          <option value="esignature" label="eSignature">
+          <option value="event-conferencing" label="Event Conferencing">
+          <option value="expense" label="Expense">
+          <option value="finance" label="Finance">
+          <option value="fsa" label="FSA">
+          <option value="general" label="General">
+          <option value="helpdesk" label="Helpdesk">
+          <option value="humancapital" label="Human Capital">
+          <option value="marketing" label="Marketing">
+          <option value="messaging" label="Messaging">
+          <option value="monitoring" label="Monitoring">
+          <option value="ocr" label="OCR">
+          <option value="payment" label="Payment">
+        </datalist>
+        <select id="element_type" name="element_type">
+          <option value="" disabled selected hidden>Element Type</option>
+          <option value=".NET" label=".NET">
+          <option value="CJ" label="CJ">
+          <option value="EB" label="Element Builder">
+          <option value="J" label="J">
+          <option value="JAVA" label="JAVA">
+        </select>
+        <select id="authentication_type" name="authentication_type">
+          <option value="" disabled selected hidden>Aunthentication Type</option>
+          <option value="apikey" label="apikey">
+          <option value="awsv2" label="awsv2">
+          <option value="basic" label="basic">
+          <option value="custom" label="custom">
+          <option value="oauth1Plaintext" label="oauth1Plaintext">
+          <option value="oauth2" label="oauth2">
+          <option value="oauth2Password" label="oauth2Password">
+        </select>
+        <select id="api_type" name="api_type">
+          <option value="" disabled selected hidden>API Type</option>
+          <option value="SOAP" label="SOAP">
+          <option value="RESTy" label="RESTy">
+          <option value="REST" label="REST">
+          <option value="ODATA" label="ODATA">
+          <option value=".NET" label=".NET">
+          <option value="other" label="Other">
+        </select>
+        <label for="beta">
+            <input id="beta" name="beta" type="checkbox"> Beta
+        </label>
+        <label for="events">
+            <input id="events" type="checkbox"> Events
+        </label>
+        <label for="bulk_upload">
+            <input id="bulk_upload" type="checkbox"> Bulk Upload
+        </label>
+        <label for="bulk_download">
+            <input id="bulk_download" type="checkbox"> Bulk Download
+        </label>
+
+        <button type="button" id="clearSearch" class="pure-button button-ghost">Clear</button>
+        <button type="submit" class="pure-button button-primary">Search</button>
     </form>
-    <div class="count" id="total-count"></div>
   </div>
-  <div id="loaderHolder" class="loaderHolder"></div>
-  <table class="pure-table pure-table-bordered pure-table-striped">
-    <thead>
-      <tr id="headerRow">
-        <!-- Inject table headers here... <th> -->
-      </tr>
-    </thead>
-    <tbody id="tableBody">
-      <!-- Inject -->
-    </tbody>
-  </table>
+  <div class="subtoolbar align-items-spacebtw">
+    <div class="count" id="total-count"></div> 
+    <button type="button" id="printTable" class="pure-button button-secondary button-inverted noprint"><i class="fa fa-print fa-sm"></i> Print</button>
+  </div>
+  <div id="loaderHolder" class="loaderHolder noprint"></div>
+  <div class="table-wrapper">
+    <table class="fixed-header pure-table pure-table-bordered pure-table-striped" id="metadataTable">
+      <thead>
+        <tr id="headerRow">
+          <!-- Inject table headers here... <th> -->
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Inject -->
+      </tbody>
+    </table>
+  </div>
 </body>
 
 </html>

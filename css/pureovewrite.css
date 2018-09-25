@@ -1,18 +1,19 @@
 :root {
-    --primary-color: rgb(68, 200, 245);
-    --secondary-color: rgb(77, 130, 191);
-    --tertiary-color: rgb(23, 35, 48);
-    --text-color: rgb(51, 51, 51);
-    --text-color-light: rgb(209, 209, 209);
-    --white-color: white;
-    --black-color: black;
-    --line-color: rgb(209, 209, 209);
-    --background-verylight: rgb(242, 242, 242);
-    --background-light: rgb(225, 225, 225);
-    --background-dark: rgb(50, 50, 50);
-    --success-color: rgb(91, 189, 141);
-    --danger-color: #FF4E4E;
-    --warning-color: yellow;
+  /* Setting variables color */
+  --primary-color: rgb(77, 130, 191);
+  --secondary-color: rgb(68, 200, 245);
+  --tertiary-color: rgb(23, 35, 48);
+  --text-color: rgb(51, 51, 51);
+  --text-color-light: rgb(209, 209, 209);
+  --white-color: white;
+  --black-color: black;
+  --line-color: rgb(209, 209, 209);
+  --background-verylight: rgb(242, 242, 242);
+  --background-light: rgb(225, 225, 225);
+  --background-dark: rgb(50, 50, 50);
+  --success-color: rgb(91, 189, 141);
+  --danger-color: rgb(255, 78, 78);
+  --warning-color: rgb(245, 181, 23);
 }
 
 body {
@@ -23,13 +24,23 @@ body {
 }
 
 img {
-  width: 22px;
-  height: 22px;
-  margin-right: 10px;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+  }
+
+th.tableHeaderClickable {
+  cursor: pointer;
+} 
+
+table.fixed-header tbody {
+  display: block;
+  overflow: auto;
+  height: calc(100vh - 155px);
 }
 
-th.tableHeader {
-  cursor: pointer;
+table.fixed-header tr {
+  display: flex;
 }
 
 .tmpContainer {
@@ -56,10 +67,24 @@ th.tableHeader {
   justify-content: flex-start;
 }
 
-.title.with-navigation button,
-.title.with-navigation a {
-  font-size: 12px;
+.title-nav-button {
+  background-color: transparent;
+  background-image: none;
+  font-size: 10px;
   margin: -5px 10px -5px -5px;
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
+  display: flex;
+  align-items: center;
+}
+
+.title-nav-button span {
+  display: none;
+}
+
+.title-nav-button:hover span{
+  display: block;
+  margin-left: 5px;
 }
 
 .toolbar,
@@ -77,6 +102,17 @@ th.tableHeader {
   justify-content: flex-end;
 }
 
+.subtoolbar {
+  display: flex;
+  position: relative;
+  padding: 5px 12px;
+  align-items: baseline;
+}
+
+.subtoolbar.align-items-spacebtw {
+  justify-content: space-between;
+}
+
 .footer-group {
   flex-direction: row;
   align-items: stretch;
@@ -92,10 +128,26 @@ th.tableHeader {
   text-align: center;
 }
 
+.pure-button-group .pure-button:hover {
+  border-right: 1px solid rgba(0,0,0,.2) !important;
+}
+.pure-button-group .pure-button:last-child:hover {
+  border-right: none !important;
+}
+
+/** Solid Button colors - The most importat actions in the interface
+*** "button-primary" Use only for main interaction in the interface - it shoul only be one (like Highlander)
+*** "button-secondary" Use only for the secondary action in the interface - could be more that ono but preferably not as solid color button
+*** "button-success" For a positive actions like Test, Try it out, Accept, Procced 
+*** "button-error" For a negative actions like Delete or Cancel 
+*** "button-warning" For preventing actions like Procced with caution
+**/ 
+
 .button-success,
 .button-error,
 .button-warning,
-.button-primary {
+.button-primary,
+.button-secondary {
     color: var(--white-color);
     border-radius: 2px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -104,7 +156,8 @@ th.tableHeader {
 .button-success .svg,
 .button-error .svg,
 .button-warning .svg,
-.button-primary .svg {
+.button-primary .svg
+.button-secondary .svg {
   filter: invert(1);
   width: 16px;
   margin: 0px 0 -4px 0;
@@ -112,6 +165,10 @@ th.tableHeader {
 
 .button-primary {
   background: var(--primary-color);
+}
+
+.button-secondary {
+  background: var(--secondary-color);
 }
 
 .button-success {
@@ -123,9 +180,78 @@ th.tableHeader {
 }
 
 .button-warning {
-  /* background: var(--tertiary-color); */
-  color: yellow;
+  background: var(--warning-color);
 }
+
+/** Inverted Button - 
+*** For less importat actions in teh interface
+*** by using solid button classes like "button-secondary" + "button-inverted"
+*** will invert the design to a text and border witht the seleted color
+**/ 
+
+.button-inverted {
+  background: transparent;
+  text-shadow: none;
+  border: 1px solid var(--black-color);
+}
+
+.button-inverted:hover {
+  background: #f9f9f9;
+}
+
+.button-inverted:focus {
+  background-color: #f2f2f2;
+  background-image: none;
+}
+
+.button-inverted.button-secondary {
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+/** Ghost Button - 
+*** For supportive actions in the interface - uses like toolbar action of "copy", "clear", "expand"
+*** by using solid button classes like "button-secondary" + "button-ghost"
+*** will set the style to a text only button
+**/ 
+
+.button-ghost{
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  color: var(--text-color);
+  text-shadow: none;
+}
+
+.button-ghost:hover{
+  background-color: #f9f9f9;
+  background-image: none;
+  border: none;
+}
+
+.button-ghost.button-primary{
+  color: var(--primary-color);
+}
+
+.button-ghost.button-secondary{
+  color: var(--secondary-color);
+}
+
+.button-ghost.button-success{
+  color: var(--success-color);
+}
+
+.button-ghost.button-error{
+  color: var(--danger-color);
+}
+
+.button-ghost.button-warning{
+  color: var(--warning-color);
+}
+
+/** Set different sizes of the buttons 
+*** MORE INFO AND USAGE TO COME
+**/
 
 .button-large {
     font-size: 130%;
@@ -134,6 +260,7 @@ th.tableHeader {
 .button-small {
     font-size: 80%;
 }
+
 
 .list-navigation .pure-menu-link {
   font-size: 16px;
@@ -307,19 +434,31 @@ pre {
   box-shadow: none;
 }
 
-.toolbar .search-control {
-  margin: 5px;
-  background-color: var(--background-light);
+.toolbar.searchBar {
+  display: initial;
 }
 
-.toolbar .search-control .searcher {
-  width: 450px;
+.toolbar.searchBar form {
+  align-items: center;
+  flex: 1;
+  flex-direction: row;
+}
+
+.toolbar.searchBar form * {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.toolbar.searchBar form *:last-child {
+  margin-right: 0;
+}
+
+.toolbar.searchBar form label, .toolbar.searchBar form .pure-button {
+  width: max-content;
+  flex: unset;
 }
 
 .count {
-  position: absolute;
-  right: 15px;
-  top: 5px;
   letter-spacing: 1px;
 }
 
@@ -347,6 +486,62 @@ pre {
   display: block;
   letter-spacing: normal
 }
+.table-wrapper {
+  width: 100vw;
+  overflow-x: auto;
+  height: calc(100vh - 116px);
+  overflow-y: hidden;
+}
+
+/* Set width for columns in metadataTable Table, use class names generated in render (same as header)*/
+body.matadataTable {
+  overflow: hidden;
+}
+#metadataTable {width: 100vw}
+#metadataTable th {
+  text-transform: capitalize;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#metadataTable th.id, 
+#metadataTable td.id {width: 70px}
+
+#metadataTable th.hub, 
+#metadataTable td.hub {width: 140px}
+
+#metadataTable th.name,
+#metadataTable td.name {width: 220px;}
+
+#metadataTable th.key,
+#metadataTable td.key {width: 170px;}
+
+#metadataTable th.element_type,
+#metadataTable td.element_type {width: 85px}
+
+#metadataTable th.authentication_type,
+#metadataTable td.authentication_type {width: 125px}
+
+#metadataTable th.api_type,
+#metadataTable td.api_type {width: 70px}
+
+#metadataTable th.beta,
+#metadataTable td.beta {width: 70px}
+
+#metadataTable th.events,
+#metadataTable td.events {width: 55px}
+
+#metadataTable th.bulk_upload,
+#metadataTable td.bulk_upload {width: 75px}
+
+#metadataTable th.bulk_download,
+#metadataTable td.bulk_download {width: 90px}
+
+#metadataTable th.notes,
+#metadataTable td.notes {flex: 1.5; min-width: 150px}
+
+
+
 
 footer {
   position: fixed;
