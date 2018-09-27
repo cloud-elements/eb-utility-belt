@@ -1,8 +1,18 @@
+import {
+  clearLoader,
+  getCached,
+  isEmpty,
+  isEmptyObject,
+  isEmptyStr,
+  setLoader,
+  getForPath
+} from './ce-utils.js';
+
 let state = {
   elementsList: null,
-  sortField : {
-  'field': null,
-  'order': 1
+  sortField: {
+    'field': null,
+    'order': 1
   }
 };
 
@@ -24,30 +34,11 @@ function getHeaders() {
     bulk_upload: 'bulk.upload',
     bulk_download: 'bulk.download',
     notes: 'notes',
-    // api_count: 'usage.traffic'
+    // api_count: 'usage.traffic',
+    // instance_count: 'usage.instanceCount',
+    // customer_count: 'usage.customerCount'
   };
 }
-
-function isEmptyStr(str) {
-  return !str || (str && str.trim().length == 0);
-}
-
-function isEmptyObject(obj) {
-  return Array.isArray(obj) ?
-    !obj || (obj && obj.length == 0) :
-    !obj || (obj && Object.keys(obj).length == 0);
-}
-
-function isEmpty(o) {
-  return typeof o === 'string' 
-    ? isEmptyStr(o) 
-    : typeof o === 'boolean' 
-      ? o
-      : typeof o === 'number'
-        ? false
-        : isEmptyObject(o);
-}
-
 
 /**
  * Sorts fields 'a' and 'b' alphabetically by the given 'field', ['field', 'path'],
@@ -147,20 +138,10 @@ function sort(a, b, sortBy) {
   }
 }
 
-// Make Header Pretty - remove character
-function prettyfyHeader(str, c) {
-  let headerArray = str.split(c);
-  let header = "";
-  for (i = 0; i < headerArray.length; i++) {
-    header += headerArray[i] + " ";
-  }
-  return header;
-}
-
 function getTableHeaders(headerKeys) {
   return headerKeys.map(header => {
     let tableHeaderElement = document.createElement('th');
-    tableHeaderElement.innerHTML = prettyfyHeader(header, '_');
+    tableHeaderElement.innerHTML = header.split('_').join(' ');
     tableHeaderElement.addEventListener('click', e => sortBy(header));
     tableHeaderElement.className = "tableHeaderClickable " + header;
     return tableHeaderElement;
@@ -181,10 +162,10 @@ function getValue(element, headerMap, headerKey) {
                 : ''
               : acc[key];
           return acc;
-        }, '')
-        : isEmpty(element[elementMetadataKey]) 
-          ? ''
-          : element[elementMetadataKey];
+    }, '') :
+    isEmpty(element[elementMetadataKey]) ?
+    '' :
+    element[elementMetadataKey];
 }
 
 function getTableRows(elements, headerMap) {
@@ -227,13 +208,47 @@ function loadTable(elements) {
 }
 
 function getConcatName(elementObj) {
-  return `${elementObj.key.trim()}${elementObj.hub}${elementObj.api && elementObj.api.type}${elementObj.name.trim().toLowerCase()}${elementObj.elementType.toLowerCase()}${elementObj.authenticationType}`;
+  return `${elementObj.key.trim()}${elementObj.name.trim()}`;
 }
 
-function filterSearch(elementObj, searchParam) {
-  if (isEmpty(searchParam)) return true;
+function getFilterMap(searchParam) {
+  return searchParam.split('&').reduce((acc, pair) => {
+    let key = pair.split('=')[0];
+    let value = pair.split('=')[1];
+    // Skip on all
+    if (value !== 'all' && !isEmpty(value)) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+}
 
-  return searchParam && getConcatName(elementObj).includes(searchParam.toLowerCase());
+function getBoolean(filterField) {
+  return filterField === 'true';
+}
+
+function checkExistance(objectField, filterField, include) {
+  if (isEmpty(filterField)) return true;
+  if (typeof (objectField) !== 'boolean' && isEmpty(objectField)) return false; // False here will NOT include empty results
+  return typeof objectField === 'string' 
+    ? include 
+      ? objectField.includes(filterField) 
+      : objectField == filterField
+    : objectField == getBoolean(filterField);
+}
+
+function filterSearch(elementObj, queryMap) {
+  if (isEmpty(queryMap)) return true;
+
+  return checkExistance(getConcatName(elementObj), queryMap.q, true) &&
+         checkExistance(elementObj.hub, queryMap.hubs) &&
+         checkExistance(elementObj.elementType, queryMap.element_type) &&
+         checkExistance(elementObj.authenticationType, queryMap.authentication_type) &&
+         checkExistance(getForPath(elementObj, 'api.type'), queryMap.api_type) &&
+         checkExistance(elementObj.beta, queryMap.beta) &&
+         checkExistance(getForPath(elementObj, 'events.supported'), queryMap.events) &&
+         checkExistance(getForPath(elementObj, 'bulk.upload'), queryMap.bulk_upload) &&
+         checkExistance(getForPath(elementObj, 'bulk.download'), queryMap.bulk_download);
 }
 
 // Searching appends a ?q= whatever to the extension URL, let's pluck that
@@ -243,7 +258,7 @@ function getSearchParam(cb) {
     lastFocusedWindow: true
   }, function (tabs) {
     var tab = tabs[0];
-    cb(tab.url.split('?q=')[1]);
+    cb(tab.url.split('?')[1]);
   });
 }
 
@@ -257,23 +272,17 @@ function sortBy(name, event) {
   state.sortField.order++;
   getSearchParam(searchParam => {
     console.log('search param is: ', searchParam);
-    const sortedElements = state.elementsList.filter(elementObj => filterSearch(elementObj, searchParam) && elementObj.displayOrder > 0);
+
+    const queryMap = isEmpty(searchParam) ? null : getFilterMap(searchParam);
+
+    const sortedElements = state.elementsList.filter(elementObj => filterSearch(elementObj, queryMap) && elementObj.displayOrder > 0);
     loadTable(sortedElements);
   })
 }
 
-function getSecrets(cacheName, cb) {
-  chrome.storage.sync.get(cacheName, function (items) {
-    if (!chrome.runtime.error) {
-      if (items[cacheName])
-         cb(items[cacheName]);
-    }
-  });
-}
-
 function getAuthorizationDefaults(cb) {
-  getSecrets('ce-eb-ub-us', us => {
-    getSecrets('ce-eb-ub-os', os => {
+  getCached('ce-eb-ub-us', us => {
+    getCached('ce-eb-ub-os', os => {
       cb(`User ${us}, Organization ${os}`);
     });
   });  
@@ -283,46 +292,42 @@ function getAuthorizationDefaults(cb) {
 function getElements(cb) {
   let http = new XMLHttpRequest();
   // http.open("GET", `https://api.cloud-elements.com/elements/api-v2/elements?abridged=true`, true);
-  http.open("GET", `https://api.cloud-elements.com/elements/api-v2/elements/metadata?pageSize=500`, true);
-  http.setRequestHeader("Accept", "application/json");
-
-  getAuthorizationDefaults(auth => {
-    http.setRequestHeader("Authorization", auth);
-    http.onload = function () {
-      if (http.readyState == 4 && http.status == 200) {
-        state.elementsList = JSON.parse(this.responseText);
-        cb(state.elementsList);
-      }
-    };
-
-    http.send(null);
+  getCached('ce-eb-ub-env', env => {
+    http.open("GET", `${env}/elements/api-v2/elements/metadata?pageSize=500`, true);
+    http.setRequestHeader("Accept", "application/json");
+  
+    getAuthorizationDefaults(auth => {
+      http.setRequestHeader("Authorization", auth);
+      http.onload = function () {
+        if (http.readyState == 4 && http.status == 200) {
+          state.elementsList = JSON.parse(this.responseText);
+          cb(state.elementsList);
+        }
+      };
+  
+      http.send(null);
+    });
   });  
 }
 
-function clearLoader() {
-  const loaderHolder = document.getElementById('loaderHolder'),
-        loader = document.getElementById('loader');
-
-  if (loader) {
-    loaderHolder.removeChild(loader);
+function setDropdowns(queryMap) {
+  if (queryMap) {
+    Object.keys(queryMap).forEach(key => {
+      document.getElementById(key).value = queryMap[key];
+    });
   }
-}
-
-function setLoader() {
-  const loaderHolder = document.getElementById('loaderHolder'),
-        loader = document.createElement('div');
-
-  loader.className = "loader";
-  loader.id = "loader";
-  loaderHolder.appendChild(loader);
 }
 
 function init() {
   setLoader();
   getSearchParam(searchParam => {
+    const queryMap = isEmpty(searchParam) ? null : getFilterMap(searchParam);
     console.log('search param is ', searchParam);
+    console.log('query map is ', queryMap)
+    setDropdowns(queryMap);
+    
     getElements(elements => {
-      const filteredElements = elements.filter(elementObj => filterSearch(elementObj, searchParam) && elementObj.displayOrder > 0);
+      const filteredElements = elements.filter(elementObj => filterSearch(elementObj, queryMap) && elementObj.displayOrder > 0);
       clearLoader();
       loadTable(filteredElements);
       
@@ -334,7 +339,7 @@ function init() {
 }
 
 function clearSearch() {
-  window.location.href =  window.location.href.split('?')[0]
+  window.location.href = window.location.href.split('?')[0]
 }
 
 function printPage() {

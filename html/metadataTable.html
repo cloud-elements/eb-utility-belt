@@ -2,7 +2,7 @@
 <html class="no-js" lang="">
 
 <head>
-  <script src="../js/metadataTable.js"></script>
+  <script type="module" src="../js/metadataTable.js"></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Google Extension</title>
@@ -61,39 +61,39 @@
         <i class="fa fa-angle-left fa-sm"></i>
         <span>Back</span>
       </a>
-      CE Production Metadata for Elements
+      CE Element's Metadata
     </h1>
   </div>
   <div class="toolbar searchBar align-items-left noprint">
     <form role="search" class="pure-form" >
-        <input type="search" id="table-search" name="q" placeholder="Search by name or key" aria-label="Search through site content" style="flex: 2">
-        <input list="hubs" placeholder="Hubs" style="flex: 1.5">
-        <datalist id="hubs">
-          <option value="billing" label="Billing">
-          <option value="collaboration" label="Collaboration">
-          <option value="conferencing" label="Conferencing">
-          <option value="crm" label="CRM">
-          <option value="db" label="DB">
-          <option value="documents" label="Documents">
-          <option value="ecommerce" label="eCommerce">
-          <option value="employee" label="Employee">
-          <option value="erp" label="ERP">
-          <option value="esignature" label="eSignature">
-          <option value="event-conferencing" label="Event Conferencing">
-          <option value="expense" label="Expense">
-          <option value="finance" label="Finance">
-          <option value="fsa" label="FSA">
-          <option value="general" label="General">
-          <option value="helpdesk" label="Helpdesk">
-          <option value="humancapital" label="Human Capital">
-          <option value="marketing" label="Marketing">
-          <option value="messaging" label="Messaging">
-          <option value="monitoring" label="Monitoring">
-          <option value="ocr" label="OCR">
-          <option value="payment" label="Payment">
-        </datalist>
+        <input type="search" id="q" name="q" placeholder="Search by name or key" aria-label="Search through site content" style="flex: 2">
+        <input list="hubsList" id="hubs" name="hubs" placeholder="Hubs" style="flex: 1.5">
+          <datalist id="hubsList">
+            <option value="billing" label="Billing">
+            <option value="collaboration" label="Collaboration">
+            <option value="conferencing" label="Conferencing">
+            <option value="crm" label="CRM">
+            <option value="db" label="DB">
+            <option value="documents" label="Documents">
+            <option value="ecommerce" label="eCommerce">
+            <option value="employee" label="Employee">
+            <option value="erp" label="ERP">
+            <option value="esignature" label="eSignature">
+            <option value="event-conferencing" label="Event Conferencing">
+            <option value="expense" label="Expense">
+            <option value="finance" label="Finance">
+            <option value="fsa" label="FSA">
+            <option value="general" label="General">
+            <option value="helpdesk" label="Helpdesk">
+            <option value="humancapital" label="Human Capital">
+            <option value="marketing" label="Marketing">
+            <option value="messaging" label="Messaging">
+            <option value="monitoring" label="Monitoring">
+            <option value="ocr" label="OCR">
+            <option value="payment" label="Payment">
+          </datalist>
         <select id="element_type" name="element_type">
-          <option value="" disabled selected hidden>Element Type</option>
+          <option value="all" selected>Element Type (all)</option>
           <option value=".NET" label=".NET">
           <option value="CJ" label="CJ">
           <option value="EB" label="Element Builder">
@@ -101,7 +101,7 @@
           <option value="JAVA" label="JAVA">
         </select>
         <select id="authentication_type" name="authentication_type">
-          <option value="" disabled selected hidden>Aunthentication Type</option>
+          <option value="all" selected>Authentication Type (all)</option>
           <option value="apikey" label="apikey">
           <option value="awsv2" label="awsv2">
           <option value="basic" label="basic">
@@ -111,7 +111,7 @@
           <option value="oauth2Password" label="oauth2Password">
         </select>
         <select id="api_type" name="api_type">
-          <option value="" disabled selected hidden>API Type</option>
+          <option value="all" selected>API Type (all)</option>
           <option value="SOAP" label="SOAP">
           <option value="RESTy" label="RESTy">
           <option value="REST" label="REST">
@@ -119,18 +119,26 @@
           <option value=".NET" label=".NET">
           <option value="other" label="Other">
         </select>
-        <label for="beta">
-            <input id="beta" name="beta" type="checkbox"> Beta
-        </label>
-        <label for="events">
-            <input id="events" type="checkbox"> Events
-        </label>
-        <label for="bulk_upload">
-            <input id="bulk_upload" type="checkbox"> Bulk Upload
-        </label>
-        <label for="bulk_download">
-            <input id="bulk_download" type="checkbox"> Bulk Download
-        </label>
+        <select id="beta" name="beta">
+          <option value="all" selected>Beta (all)</option>
+          <option value="true" label="True" />
+          <option value="false" label="False" />
+        </select>
+        <select id="events" name="events">
+          <option value="all" selected>Events (all)</option>
+          <option value="true" label="True" />
+          <option value="false" label="False" />
+        </select>
+        <select id="bulk_upload" name="bulk_upload">
+          <option value="all" selected>Bulk Upload (all)</option>
+          <option value="true" label="True" />
+          <option value="false" label="False" />
+        </select>
+        <select id="bulk_download" name="bulk_download">
+          <option value="all" selected>Bulk Download (all)</option>
+          <option value="true" label="True" />
+          <option value="false" label="False" />
+        </select>
 
         <button type="button" id="clearSearch" class="pure-button button-ghost">Clear</button>
         <button type="submit" class="pure-button button-primary">Search</button>

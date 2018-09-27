@@ -1,3 +1,5 @@
+import { getCached, copyTextArea } from './ce-utils.js';
+
 function sendRequest(domain, objectName, data, userKey, orgKey) {
     var http = new XMLHttpRequest();
     var url = `${domain}/elements/api-v2/models/${objectName}/schema`;
@@ -45,18 +47,6 @@ function generateModel() {
     sendRequest(domain, objectName, inputMsg, userKey, orgKey);
 }
 
-function getCached(cacheName, cb) {
-    chrome.storage.sync.get(cacheName, function (items) {
-        if (!chrome.runtime.error) {
-            if (items[cacheName]) {
-                cb(items[cacheName]);
-            } else {
-                cb(null);
-            }
-        }
-    });
-}
-
 function getCachedWithDefault(cacheName, defaultName, cb) {
     getCached(cacheName, us => {
         if (us) {
@@ -70,56 +60,29 @@ function getCachedWithDefault(cacheName, defaultName, cb) {
 }
 
 window.onload = function () {
-    chrome.storage.sync.get("domain", function (items) {
-        if (!chrome.runtime.error) {
-            console.log(items);
-            if (items.domain) {
-                document.getElementById("domain").value = items.domain;
-            }
-        }
+    getCachedWithDefault('domain', 'ce-eb-ub-env', env => {
+        document.getElementById("domain").value = env;
     });
+
     getCachedWithDefault('userKey', 'ce-eb-ub-us', uk => {
         document.getElementById("userKey").value = uk;
     });
-    // chrome.storage.sync.get("userKey", function (items) {
-    //     if (!chrome.runtime.error) {
-    //         console.log(items);
-    //         if (items.userKey) {
-    //             document.getElementById("userKey").value = items.userKey;
-    //         }
-    //     }
-    // });
-
+    
     getCachedWithDefault('orgKey', 'ce-eb-ub-os', ok => {
         document.getElementById("orgKey").value = ok;
     });
-    // chrome.storage.sync.get("orgKey", function (items) {
-    //     if (!chrome.runtime.error) {
-    //         console.log(items);
-    //         if (items.orgKey)
-    //             document.getElementById("orgKey").value = items.orgKey;
-    //     }
-    // });
-    chrome.storage.sync.get("inputMsg-model", function (items) {
-        if (!chrome.runtime.error) {
-            console.log(items);
-            if (items['inputMsg-model'])
-                document.getElementById("inputMsg-model").value = items['inputMsg-model'];
-        }
+
+    getCached('inputMsg-model', model => {
+        document.getElementById("inputMsg-model").value = model;
     });
-    chrome.storage.sync.get("objectName-model", function (items) {
-        if (!chrome.runtime.error) {
-            console.log(items);
-            if (items['objectName-model'])
-                document.getElementById("objectName-model").value = items['objectName-model'];
-        }
+
+    getCached('objectName-model', objectName => {
+        document.getElementById("objectName-model").value = objectName;
     });
 }
 
 function copyOutput() {
-    var element = document.getElementById('outputMsg-model')
-    element.select();
-    document.execCommand("copy");
+    copyTextArea('outputMsg-model');
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -1,7 +1,7 @@
-function makeAuthnRequest(un, pw, cb) {
+function makeAuthnRequest(env, un, pw, cb) {
   var http = new XMLHttpRequest();
   http.withCredentials = true;
-  var url = `https://api.cloud-elements.com/elements/api-v2/authentication`;
+  var url = `${env}/elements/api-v2/authentication`;
   http.open("POST", url, true);
   http.setRequestHeader("content-type", "application/json");
   http.setRequestHeader("accept", "application/json");
@@ -13,7 +13,12 @@ function makeAuthnRequest(un, pw, cb) {
         cb(JSON.parse(this.responseText))
       } else {
         console.warn('err', http.responseText);
-        errorText.innerHTML = JSON.parse(http.responseText).message;
+        try {
+          errorText.innerHTML = JSON.parse(http.responseText).message;
+        } catch (e) {
+          console.warn(`Could not parse`, e);
+          errorText.innerHTML = `Could not login`;
+        }
         disableButtons(false);
       }
     }
@@ -24,10 +29,10 @@ function makeAuthnRequest(un, pw, cb) {
   }));
 }
 
-function makeSecretsRequest(authToken, cb) {
+function makeSecretsRequest(env, authToken, cb) {
   var http = new XMLHttpRequest();
   http.withCredentials = true;
-  var url = `https://api.cloud-elements.com/elements/api-v2/authentication/secrets`;
+  var url = `${env}/elements/api-v2/authentication/secrets`;
   http.open("GET", url, true);
   http.setRequestHeader("content-type", "application/json");
   http.setRequestHeader("accept", "application/json");
@@ -75,17 +80,19 @@ function redirectToIndex() {
 
 function loginToCe() {
   const un = document.getElementById('username').value,
-    pw = document.getElementById('password').value;
+    pw = document.getElementById('password').value,
+    env = document.getElementById('environment').value;
 
   disableButtons(true);
-  makeAuthnRequest(un, pw, authJson => {
+  makeAuthnRequest(env, un, pw, authJson => {
     const authToken = authJson.token;
-    makeSecretsRequest(authToken, secretsJson => {
+    makeSecretsRequest(env, authToken, secretsJson => {
       const orgSecret = secretsJson.organizationSecret,
         userSecret = secretsJson.userSecret;
       chrome.storage.sync.set({
         'ce-eb-ub-os': orgSecret,
-        'ce-eb-ub-us': userSecret
+        'ce-eb-ub-us': userSecret,
+        'ce-eb-ub-env': env
       });
       redirectToIndex();
     })

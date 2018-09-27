@@ -181,11 +181,12 @@ function init() {
 }
 
 window.onload = function() {
-  console.log('wtfdood');
   init();
   document.getElementById("full-screen").addEventListener("click", sendFullScreenMsg);
   document.getElementById("emoji-generator").addEventListener("click", generateEmoji);
   document.getElementById("url-shortener").addEventListener("click", shortenUrl);
-  document.getElementById("clean-cache").addEventListener("click", cleanCache);
-  document.getElementById("logout").addEventListener("click", logoutAndRedirect);
+  document.getElementById("cleanup-cache").addEventListener("click", cleanCache);
+  if (document.getElementById("logout")) {
+    document.getElementById("logout").addEventListener("click", logoutAndRedirect);
+  }
 }

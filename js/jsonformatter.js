@@ -1,20 +1,40 @@
+import { getTokens, safeParse } from './ce-utils.js';
+
+function colorize(tokens) {
+    const defaultColors = {
+        BRACE: 'white',
+        BRACKET: 'white',
+        COLON: 'white',
+        COMMA: 'white',
+        STRING_KEY: 'lightblue',
+        STRING_LITERAL: 'lightsalmon',
+        NUMBER_LITERAL: 'lightgreen',
+        BOOLEAN_LITERAL: 'dodgerblue',
+        NULL_LITERAL: 'dodgerblue',
+        POST: 'green',
+        GET: 'blue',
+        PATCH: 'orange',
+        PUT: 'orange',
+        DELETE: 'red'
+    };
+
+    return tokens.map(token => token.value.fontcolor(defaultColors[token.type])).join('');
+}
+
+
 function parseJson(body) {
-    var json = null;
-    try {
-        json = JSON.parse(body);
-    } catch (ignoreIt) {
-        console.warn('exception', ignoreIt);
-    }
-    var outputMsg = document.getElementById('outputMsg-json');
+    let json = safeParse(body),
+        outputMsg = document.getElementById('outputMsg-json');
+
     if (json) {
-        outputMsg.value = JSON.stringify(json, 0, 2);
+        outputMsg.innerHTML = colorize(getTokens(JSON.stringify(json, null, 2)));
     } else {
-        outputMsg.value = 'Invalid JSON';
+        outputMsg.innerHTML = colorize([{ type: 'DELETE', value: 'Invalid JSON'}]);
     }
 }
 
 function formatJson() {
-    var inputMsg = document.getElementById('inputMsg-json').value;
+    const inputMsg = document.getElementById('inputMsg-json').value;
 
     chrome.storage.sync.set({
         "inputMsg-json": inputMsg
@@ -33,10 +53,16 @@ window.onload = function () {
     });
 }
 
+// Hacking this to just use the inputMsg directly, but mocks selection :[
 function copyOutput() {
-    var element = document.getElementById('outputMsg-json')
-    element.select();
-    document.execCommand("copy");
+    let json = JSON.parse(document.getElementById('inputMsg-json').value);
+    let outputMsgElement = document.getElementById('outputMsg-json');
+    let range = document.createRange();
+    range.selectNodeContents(outputMsgElement);
+    let selection = window.getSelection(); 
+    selection.removeAllRanges();
+    selection.addRange(range);
+    navigator.clipboard.writeText(JSON.stringify(json, null, 2));
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -11,12 +11,11 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/pureovewrite.css">
-
 </head>
 
 <body class="pure-u-1">
   <div class="header">
-    <h1 class="title">Cloud Elements (production)</h1>
+    <h1 class="title">Cloud Elements</h1>
     <div class="toolbar align-items-right pure-button-group" role="group">
       <div class="fade-small-text" id="tmp"></div>
       <button class="pure-button button-ghost button-warning" id="emoji-generator" title="Random Emoji Generator" alt="Emoji Generator">
@@ -25,23 +24,29 @@
       </button>
       <button class="pure-button button-ghost" id="full-screen" title="Full Screen" alt="Full Screen">
         <i class="fa fa-expand-arrows-alt"></i>
-        <script type="text/javascript" src="../js/indexUtils.js"></script>
       </button>
       <button class="pure-button button-ghost" id="url-shortener" title="URL Shortener" alt="URL Shortener">
         <i class="fa fa-link"></i>
-        <script type="text/javascript" src="../js/indexUtils.js"></script>
       </button>
       <button class="pure-button button-ghost" title="Clean Cache" id="cleanup-cache">
-          <i class="fas fa-brush fa-rotate-180"></i>
-          <script type="text/javascript" src="../js/indexUtils.js"></script>
+        <i class="fas fa-brush fa-rotate-180"></i>
       </button>
     </div>
   </div>
   <form class="pure-form pure-form-stacked" id="loginSubmit">
-    <label for="Username">Username</label>
+
+    <label for="environment">Environment</label>
+    <select id="environment">
+        <option selected value="https://api.cloud-elements.com">US Production</option>
+        <option value="https://api.cloud-elements.co.uk">UK Production</option>
+        <option value="https://staging.cloud-elements.com">Staging</option>
+        <option hidden value="https://snapshot.cloud-elements.com">Snapshot</option>
+    </select>
+
+    <label for="username">Username</label>
     <input id="username" type="email" name="userNameInput">
 
-    <label for="Password">Password</label>
+    <label for="password">Password</label>
     <input id="password" type="password" name="passwordInput" />
     <div class="toolbar align-items-right pure-button-group login" role="group">
       <div id="errorText" class="errorText"></div>

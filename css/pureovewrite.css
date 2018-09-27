@@ -311,7 +311,7 @@ h4 {
   text-decoration: underline;
 }
 
-pre {
+pre.rawBody {
   white-space: pre;
   word-wrap: normal;
   max-height: 200px;
@@ -391,6 +391,22 @@ pre {
   border-radius: 0;
   color: var(--white-color);
   box-shadow: none;
+}
+
+.output-textfield pre,
+.output-textfield pre[readonly] {
+  border: none !important;
+  background-color: var(--background-dark);
+  padding-left: 5px;
+  margin: 0 !important;
+  min-width: 95%;
+  max-width: 100%;
+  border-radius: 0;
+  color: var(--white-color);
+  box-shadow: none;
+  height: 78px;
+  resize: both;
+  overflow: auto;
 }
 
 .pure-form-stacked input[type=password] {
@@ -535,7 +551,7 @@ body.matadataTable {
 #metadataTable td.bulk_upload {width: 75px}
 
 #metadataTable th.bulk_download,
-#metadataTable td.bulk_download {width: 90px}
+#metadataTable td.bulk_download {width: 95px}
 
 #metadataTable th.notes,
 #metadataTable td.notes {flex: 1.5; min-width: 150px}

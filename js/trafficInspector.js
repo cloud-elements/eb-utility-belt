@@ -1,40 +1,4 @@
-// Direct rip from json-colorizer
-function getTokens(json) {
-  const tokenTypes = [
-    { regex: /^\s+/, tokenType: 'WHITESPACE' },
-    { regex: /^[{}]/, tokenType: 'BRACE' },
-    { regex: /^[\[\]]/, tokenType: 'BRACKET' },
-    { regex: /^:/, tokenType: 'COLON' },
-    { regex: /^,/, tokenType: 'COMMA' },
-    { regex: /^-?\d+(?:\.\d+)?(?:e[+\-]?\d+)?/i, tokenType: 'NUMBER_LITERAL' },
-    { regex: /^"(?:\\.|[^"\\])*"(?=\s*:)/, tokenType: 'STRING_KEY'},
-    { regex: /^"(?:\\.|[^"\\])*"/, tokenType: 'STRING_LITERAL'},
-    { regex: /^true|false/, tokenType: 'BOOLEAN_LITERAL' },
-    { regex: /^null/, tokenType: 'NULL_LITERAL' }
-  ];
-
-  let input = typeof json === 'string' ? json : JSON.stringify(json),
-      tokens = [],
-      foundToken,
-      match,
-      i,
-      numTokenTypes = tokenTypes.length;
-
-  do {
-    foundToken = false;
-    for (i = 0; i < numTokenTypes; i++) {
-      match = tokenTypes[i].regex.exec(input);
-      if (match) {
-        tokens.push({ type: tokenTypes[i].tokenType, value: match[0] });
-        input = input.substring(match[0].length);
-        foundToken = true;
-        break;
-      } 
-    }
-  } while (input.length > 0 && foundToken);
-
-  return tokens;
-}
+import { clearLoader, getTokens, isEmpty, isEmptyObject, isEmptyStr } from './ce-utils.js';
 
 function colorize(tokens) {
   const defaultColors = {
@@ -67,22 +31,6 @@ function sortByCreatedDate(a, b) {
   if (new Date(a.createdDate).valueOf() < new Date(b.createdDate).valueOf()) return 1;
   if (new Date(a.createdDate).valueOf() > new Date(b.createdDate).valueOf()) return -1;
   return 0;
-}
-
-function isEmptyStr(str) {
-  return !str || (str && str.trim().length == 0);
-}
-
-function isEmptyObject(obj) {
-  return Array.isArray(obj) ?
-    !obj || (obj && obj.length == 0) :
-    !obj || (obj && Object.keys(obj).length == 0);
-}
-
-function isEmpty(o) {
-  return typeof o === 'string' ?
-    isEmptyStr(o) :
-    isEmptyObject(o);
 }
 
 function getDays(sec) {
@@ -362,15 +310,6 @@ function getUrl(cb) {
 
 function refreshSummaryEvent() {
   getUrl(url => refreshSummary(url));
-}
-
-function clearLoader() {
-  const loaderHolder = document.getElementById('loaderHolder'),
-        loader = document.getElementById('loader');
-
-  if (loader) {
-    loaderHolder.removeChild(loader);
-  }
 }
 
 function setLoader() {
