@@ -25,6 +25,10 @@
       display: none !important;
     } 
 
+    .printonly{
+      display: block;
+    }
+
     table { page-break-after:always }
     tr    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
@@ -51,6 +55,10 @@
 
     #metadataTable th, 
     #metadataTable td {width: auto !important}
+
+    .subtoolbar {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 
@@ -66,7 +74,7 @@
   </div>
   <div class="toolbar searchBar align-items-left noprint">
     <form role="search" class="pure-form" >
-        <input type="search" id="q" name="q" placeholder="Search by name or key" aria-label="Search through site content" style="flex: 2">
+        <input type="search" id="q" name="q" placeholder="Search by name or key" aria-label="Search through site content" style="flex: 2" autocomplete="off">
         <input list="hubsList" id="hubs" name="hubs" placeholder="Hubs" style="flex: 1.5">
           <datalist id="hubsList">
             <option value="billing" label="Billing">
@@ -144,8 +152,10 @@
         <button type="submit" class="pure-button button-primary">Search</button>
     </form>
   </div>
+  <div id="printedDate" class="printonly"></div>
   <div class="subtoolbar align-items-spacebtw">
     <div class="count" id="total-count"></div> 
+    <div id="displayFilters" class="filteredby"></div>
     <button type="button" id="printTable" class="pure-button button-secondary button-inverted noprint"><i class="fa fa-print fa-sm"></i> Print</button>
   </div>
   <div id="loaderHolder" class="loaderHolder noprint"></div>

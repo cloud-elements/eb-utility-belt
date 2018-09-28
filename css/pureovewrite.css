@@ -43,6 +43,10 @@ table.fixed-header tr {
   display: flex;
 }
 
+.printonly{
+  display: none;
+}
+
 .tmpContainer {
   display: flex;
   flex-direction: row;
@@ -556,8 +560,23 @@ body.matadataTable {
 #metadataTable th.notes,
 #metadataTable td.notes {flex: 1.5; min-width: 150px}
 
+.filteredby {
+  padding: 0 5px;
+  display: flex;
+}
 
+.filteredby .queryName { 
+  background-color: var(--background-verylight);
+  color: var(--text-color);
+  padding: 5px;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  margin-left: 5px;
+}
 
+.filteredby .queryTerm {
+  font-weight: bold;
+}
 
 footer {
   position: fixed;

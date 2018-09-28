@@ -318,6 +318,32 @@ function setDropdowns(queryMap) {
   }
 }
 
+function getPrintedDate() {
+  const date = new Date().toLocaleString();
+  const printedDate = document.getElementById('printedDate');
+  printedDate.innerHTML = `Printed on: ${date}`;
+}
+
+function setDisplayFilter(queryMap) {
+  const displayFilters = document.getElementById('displayFilters');
+  console.log(!isEmpty(queryMap));
+  if(!isEmpty(queryMap)) {
+    console.log(!isEmpty(queryMap))
+    for (var q in queryMap) {
+      const queryDiv = document.createElement('div');
+      queryDiv.className = "queryName printonly";
+      const querySpan = document.createElement('span');
+      querySpan.className = "queryTerm";
+
+      queryDiv.innerHTML = `${q.split('_').join(' ')}: `;
+      querySpan.innerHTML = queryMap[q];
+
+      queryDiv.appendChild(querySpan);
+      displayFilters.appendChild(queryDiv);
+    }
+  }    
+}
+
 function init() {
   setLoader();
   getSearchParam(searchParam => {
@@ -325,16 +351,18 @@ function init() {
     console.log('search param is ', searchParam);
     console.log('query map is ', queryMap)
     setDropdowns(queryMap);
-    
+    setDisplayFilter(queryMap);
     getElements(elements => {
       const filteredElements = elements.filter(elementObj => filterSearch(elementObj, queryMap) && elementObj.displayOrder > 0);
       clearLoader();
       loadTable(filteredElements);
-      
+
       const countElement = document.getElementById('total-count');
       countElement.innerHTML = `${filteredElements.length} total element${filteredElements.length !== 1 ? 's' : ''}`;
       
     })
+
+    getPrintedDate();
   })
 }
 
