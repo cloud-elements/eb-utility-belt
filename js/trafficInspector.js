@@ -9,7 +9,7 @@ function colorize(tokens) {
     STRING_KEY: 'green',
     STRING_LITERAL: 'green',
     NUMBER_LITERAL: 'blue',
-    BOOLEAN_LITERAL: 'cyan',
+    BOOLEAN_LITERAL: 'lightsalmon',
     NULL_LITERAL: 'white',
     POST: 'green',
     GET: 'blue',

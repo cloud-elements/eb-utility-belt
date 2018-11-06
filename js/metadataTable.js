@@ -37,6 +37,7 @@ function getHeaders() {
     // api_count: 'usage.traffic',
     // instance_count: 'usage.instanceCount',
     // customer_count: 'usage.customerCount'
+    'details': ''
   };
 }
 
@@ -172,6 +173,15 @@ function getTableRows(elements, headerMap) {
   return elements.sort((a, b) => sort(a, b, state.sortField)).map(element => {
     let tableRowElement = document.createElement('tr');
     let tableDataElements = Object.keys(headerMap).map(header => {
+      if (header === 'details') {
+        let tableButton = document.createElement('a');
+        getCached('ce-eb-ub-env', env => {
+          tableButton.href = `${env}/elements/api-v2/elements/${element.id}/cheat-sheet`;
+        });
+        tableButton.className = `pure-button button-ghost`;
+        tableButton.innerHTML = 'Go To';
+        return tableButton; 
+      }
       let tableDataElement = document.createElement('td');
       tableDataElement.innerHTML = getValue(element, headerMap, header);
       tableDataElement.className = header;
