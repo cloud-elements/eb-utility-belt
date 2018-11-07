@@ -20,7 +20,7 @@ exports.safeParse = (body) => {
 };
 },{}],2:[function(require,module,exports){
 var he = require('he');
-const ceUtils = require('../utilities/ce-utils');
+const ceUtils = require('../utilities/ce-utils.js');
 
 function setValue(body) {
     var outputMsg = document.getElementById('i/o-html');

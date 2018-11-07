@@ -17,10 +17,11 @@ function setMsgAndLogout(msg) {
 
 function sendFullScreenMsg() {
   var views = chrome.extension.getViews({ type: "popup" });
+  
   if (views && views.length > 0) {
     chrome.runtime.sendMessage({
       type: 'popout',
-      url: 'index.html'
+      url: '/index.html'
     });
   }
 }

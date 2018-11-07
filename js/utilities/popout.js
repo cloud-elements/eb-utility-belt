@@ -3,7 +3,7 @@ const sendDuplicateMsg = () => {
   if (views && views.length > 0) {
     chrome.runtime.sendMessage({
       type: 'popout',
-      url: 'html/utilities/duplicateFinder.html'
+      url: '/html/utilities/duplicateFinder.html'
     });
   }
 }
