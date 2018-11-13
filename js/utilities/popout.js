@@ -10,5 +10,4 @@ const sendDuplicateMsg = () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('duplicate').addEventListener('click', sendDuplicateMsg);
-  },
-false);
+  }, false);
