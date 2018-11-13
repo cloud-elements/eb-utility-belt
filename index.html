@@ -5,12 +5,12 @@
   <title>Index page</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="description" content="Atuls Google Extension">
+  <meta name="description" content="Elements Chrome Extension">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/pureovewrite.css">
+  <link rel="stylesheet" href="./css/pureovewrite.css">
 
 </head>
 
@@ -21,49 +21,49 @@
       <div class="fade-small-text" id="tmp"></div>
       <button class="pure-button button-ghost button-warning" id="emoji-generator" title="Random Emoji Generator" alt="Emoji Generator">
         <i class="fa fa-smile"></i>
-        <script type="text/javascript" src="js/indexUtils.js"></script>
+        <script type="text/javascript" src="js/utilities/indexUtils.js"></script>
       </button>
       <button class="pure-button button-ghost" id="full-screen" title="Full Screen" alt="Full Screen">
         <i class="fa fa-expand-arrows-alt"></i>
-        <script type="text/javascript" src="js/indexUtils.js"></script>
+        <script type="text/javascript" src="js/utilities/indexUtils.js"></script>
       </button>
       <button class="pure-button button-ghost" id="url-shortener" title="URL Shortener" alt="URL Shortener">
         <i class="fa fa-link"></i>
-        <script type="text/javascript" src="js/indexUtils.js"></script>
+        <script type="text/javascript" src="js/utilities/indexUtils.js"></script>
       </button>
       <button class="pure-button button-ghost" title="Clean Cache" id="cleanup-cache">
           <i class="fas fa-brush fa-rotate-180"></i>
-        <script type="text/javascript" src="js/indexUtils.js"></script>
+        <script type="text/javascript" src="js/utilities/indexUtils.js"></script>
       </button>
       <button class="pure-button button-ghost button-error" title="Logout" id="logout">
         <i class="fas fa-sign-out-alt"></i>
-        <script type="text/javascript" src="js/indexUtils.js"></script>
+        <script type="text/javascript" src="js/utilities/indexUtils.js"></script>
       </button>
     </div>
   </div>
   <div class="list-navigation pure-menu custom-restricted-width">
     <ul class="pure-menu-list">
       <li class="pure-menu-item">
-        <a id="converters" href="./html/converterIndex.html" class="pure-menu-link">
+        <a id="converters" href="html/converters/converters.html" class="pure-menu-link">
           Converters
           <i class="fa fa-angle-right fa-lg"></i>
         </a>
       </li>
       <li class="pure-menu-item">
-        <a id="formatters" href="./html/formatterIndex.html" class="pure-menu-link">
+        <a id="formatters" href="html/formatters/formatters.html" class="pure-menu-link">
           Formatters
           <i class="fa fa-angle-right fa-lg"></i>
         </a>
       </li>
       <li class="pure-menu-item">
-        <a id="metadataMenu" href="./html/metadataIndex.html" class="pure-menu-link">
+        <a id="metadataMenu" href="html/metadata/metadata.html" class="pure-menu-link">
           Metadata
           <i class="fa fa-angle-right fa-lg"></i>
         </a>
       </li>
       <li class="pure-menu-item">
-        <a id="debugMenu" href="./html/debugIndex.html" class="pure-menu-link">
-          Debug
+        <a id="utilitiesMenu" href="html/utilities/utilities.html" class="pure-menu-link">
+          Utilities
           <i class="fa fa-angle-right fa-lg"></i>
         </a>
       </li>

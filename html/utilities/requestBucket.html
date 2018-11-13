@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <script src="../../js/utilities/requestBucket.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Google Extension</title>
+  <meta name="description" content="Elements Chrome Extension">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../../css/pureovewrite.css">
+</head>
+
+<body class="pure-u-1">
+  <div class="header">
+    <h1 class="title with-navigation">
+      <a id="indexbutton" href="./utilities.html" class="pure-button title-nav-button">
+        <i class="fa fa-angle-left fa-sm"></i>
+        <span>Back</span>
+      </a>
+      Request Bucket Generator
+    </h1>
+  </div>
+  <div class="pure-form pure-form-stacked">
+    <label name="bucketNameLabel">Bucket Name (Optional)</label>
+    <input id="bucketName" type="text" name="bucketName" />
+
+    <label name="bucketUrlLabel">Bucket URL</label>
+    <input id="bucketUrl" type="text" name="bucketUrl" readonly="readonly" />
+    <br>
+    <div class="footer-group pure-button-group" role="group">
+      <button class="button-primary button-large pure-button" id="generateBucket" type="button" alt="Generate Bucket">
+        Generate
+      </button>
+      <br>
+      <button class="button-primary button-large pure-button" id="inspectBucket" type="button" alt="Inspect Bucket">
+        Inspect
+      </button>
+    </div>
+  </div>
+</body>
+
+</html>
