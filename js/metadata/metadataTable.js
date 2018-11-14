@@ -144,7 +144,7 @@ function getTableHeaders(headerKeys) {
     let tableHeaderElement = document.createElement('th');
     tableHeaderElement.innerHTML = header.split('_').join(' ');
     tableHeaderElement.addEventListener('click', e => sortBy(header));
-    tableHeaderElement.className = "tableHeaderClickable " + header;
+    tableHeaderElement.className = `tableHeaderClickable ${header} ${header === 'details' ? ' noprint' : ''}`;
     return tableHeaderElement;
   });
 }
@@ -153,12 +153,12 @@ function getTableHeaders(headerKeys) {
 function getValue(element, headerMap, headerKey) {
   let elementMetadataKey = headerMap[headerKey];
 
-  return elementMetadataKey.includes('beta') 
+  return elementMetadataKey.includes('beta')
     ? element[elementMetadataKey] && element[elementMetadataKey]
-    : elementMetadataKey.includes('.') 
+    : elementMetadataKey.includes('.')
         ? elementMetadataKey.split('.').reduce((acc, key) => {
-          acc = acc === '' 
-              ? element[key] 
+          acc = acc === ''
+              ? element[key]
                 ?  element[key]
                 : ''
               : acc[key];
@@ -175,9 +175,9 @@ function getTableRows(elements, headerMap) {
     getCached('ce-eb-ub-env', env => {
       tableButton.href = `${env}/elements/api-v2/elements/${element.id}/cheat-sheet`;
     });
-    tableButton.className = `pure-button button-ghost`;
+    tableButton.className = `pure-button row-action`;
     tableButton.innerHTML = 'Go To';
-    return tableButton; 
+    return tableButton;
   };
   return elements.sort((a, b) => sort(a, b, state.sortField)).map(element => {
     let tableRowElement = document.createElement('tr');
@@ -186,9 +186,9 @@ function getTableRows(elements, headerMap) {
       if (header === 'details') {
         tableDataElement.appendChild(getCheatSheetLink(element));
       } else {
-        tableDataElement.innerHTML = getValue(element, headerMap, header); 
+        tableDataElement.innerHTML = getValue(element, headerMap, header);
       }
-      tableDataElement.className = header;
+      tableDataElement.className = `${header} ${header === 'details' ? ' noprint' : ''}`;
       return tableDataElement;
     })
 
@@ -244,9 +244,9 @@ function getBoolean(filterField) {
 function checkExistance(objectField, filterField, include) {
   if (isEmpty(filterField)) return true;
   if (typeof (objectField) !== 'boolean' && isEmpty(objectField)) return false; // False here will NOT include empty results
-  return typeof objectField === 'string' 
-    ? include 
-      ? objectField.includes(filterField) 
+  return typeof objectField === 'string'
+    ? include
+      ? objectField.includes(filterField)
       : objectField == filterField
     : objectField == getBoolean(filterField);
 }
@@ -278,8 +278,8 @@ function getSearchParam(cb) {
 
 /**
  * Triggered when the header is clicked
- * @param {string} name 
- * @param {JSEvent} event 
+ * @param {string} name
+ * @param {JSEvent} event
  */
 function sortBy(name, event) {
   state.sortField.field = name;
@@ -299,7 +299,7 @@ function getAuthorizationDefaults(cb) {
     getCached('ce-eb-ub-os', os => {
       cb(`User ${us}, Organization ${os}`);
     });
-  });  
+  });
 }
 
 // Hit the /elements/metadata API to get the info
@@ -309,7 +309,7 @@ function getElements(cb) {
   getCached('ce-eb-ub-env', env => {
     http.open("GET", `${env}/elements/api-v2/elements/metadata?pageSize=500`, true);
     http.setRequestHeader("Accept", "application/json");
-  
+
     getAuthorizationDefaults(auth => {
       http.setRequestHeader("Authorization", auth);
       http.onload = function () {
@@ -318,10 +318,10 @@ function getElements(cb) {
           cb(state.elementsList);
         }
       };
-  
+
       http.send(null);
     });
-  });  
+  });
 }
 
 function setDropdowns(queryMap) {
@@ -355,7 +355,7 @@ function setDisplayFilter(queryMap) {
       queryDiv.appendChild(querySpan);
       displayFilters.appendChild(queryDiv);
     }
-  }    
+  }
 }
 
 function init() {
@@ -373,7 +373,7 @@ function init() {
 
       const countElement = document.getElementById('total-count');
       countElement.innerHTML = `${filteredElements.length} total element${filteredElements.length !== 1 ? 's' : ''}`;
-      
+
     })
 
     getPrintedDate();

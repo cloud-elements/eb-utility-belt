@@ -31,7 +31,7 @@ img {
 
 th.tableHeaderClickable {
   cursor: pointer;
-} 
+}
 
 table.fixed-header tbody {
   display: block;
@@ -142,10 +142,10 @@ table.fixed-header tr {
 /** Solid Button colors - The most importat actions in the interface
 *** "button-primary" Use only for main interaction in the interface - it shoul only be one (like Highlander)
 *** "button-secondary" Use only for the secondary action in the interface - could be more that ono but preferably not as solid color button
-*** "button-success" For a positive actions like Test, Try it out, Accept, Procced 
-*** "button-error" For a negative actions like Delete or Cancel 
+*** "button-success" For a positive actions like Test, Try it out, Accept, Procced
+*** "button-error" For a negative actions like Delete or Cancel
 *** "button-warning" For preventing actions like Procced with caution
-**/ 
+**/
 
 .button-success,
 .button-error,
@@ -187,11 +187,11 @@ table.fixed-header tr {
   background: var(--warning-color);
 }
 
-/** Inverted Button - 
+/** Inverted Button -
 *** For less importat actions in teh interface
 *** by using solid button classes like "button-secondary" + "button-inverted"
 *** will invert the design to a text and border witht the seleted color
-**/ 
+**/
 
 .button-inverted {
   background: transparent;
@@ -213,11 +213,11 @@ table.fixed-header tr {
   border-color: var(--secondary-color);
 }
 
-/** Ghost Button - 
+/** Ghost Button -
 *** For supportive actions in the interface - uses like toolbar action of "copy", "clear", "expand"
 *** by using solid button classes like "button-secondary" + "button-ghost"
 *** will set the style to a text only button
-**/ 
+**/
 
 .button-ghost{
   background-color: transparent;
@@ -253,7 +253,31 @@ table.fixed-header tr {
   color: var(--warning-color);
 }
 
-/** Set different sizes of the buttons 
+/** In Table Row Action Button -
+*** For row actions like delete, go to, link etc
+**/
+
+.row-action{
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  color: var(--text-color);
+  text-shadow: none;
+  opacity: .3;
+  border-radius: 0;
+}
+
+.row-action:hover{
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+  background-image: none;
+  border: none;
+  opacity: 1;
+}
+
+
+
+/** Set different sizes of the buttons
 *** MORE INFO AND USAGE TO COME
 **/
 
@@ -524,10 +548,10 @@ body.matadataTable {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-#metadataTable th.id, 
+#metadataTable th.id,
 #metadataTable td.id {width: 70px}
 
-#metadataTable th.hub, 
+#metadataTable th.hub,
 #metadataTable td.hub {width: 140px}
 
 #metadataTable th.name,
@@ -560,12 +584,23 @@ body.matadataTable {
 #metadataTable th.notes,
 #metadataTable td.notes {flex: 1.5; min-width: 150px}
 
+#metadataTable th.details {width: 48px;}
+#metadataTable td.details {width: 57px; padding: 0;}
+
+#metadataTable tr:hover td a.row-action {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+  background-image: none;
+  border: none;
+  opacity: 1;
+}
+
 .filteredby {
   padding: 0 5px;
   display: flex;
 }
 
-.filteredby .queryName { 
+.filteredby .queryName {
   background-color: var(--background-verylight);
   color: var(--text-color);
   padding: 5px;
