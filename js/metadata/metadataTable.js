@@ -170,20 +170,24 @@ function getValue(element, headerMap, headerKey) {
 }
 
 function getTableRows(elements, headerMap) {
+  const getCheatSheetLink = (element) => {
+    let tableButton = document.createElement('a');
+    getCached('ce-eb-ub-env', env => {
+      tableButton.href = `${env}/elements/api-v2/elements/${element.id}/cheat-sheet`;
+    });
+    tableButton.className = `pure-button button-ghost`;
+    tableButton.innerHTML = 'Go To';
+    return tableButton; 
+  };
   return elements.sort((a, b) => sort(a, b, state.sortField)).map(element => {
     let tableRowElement = document.createElement('tr');
     let tableDataElements = Object.keys(headerMap).map(header => {
-      if (header === 'details') {
-        let tableButton = document.createElement('a');
-        getCached('ce-eb-ub-env', env => {
-          tableButton.href = `${env}/elements/api-v2/elements/${element.id}/cheat-sheet`;
-        });
-        tableButton.className = `pure-button button-ghost`;
-        tableButton.innerHTML = 'Go To';
-        return tableButton; 
-      }
       let tableDataElement = document.createElement('td');
-      tableDataElement.innerHTML = getValue(element, headerMap, header);
+      if (header === 'details') {
+        tableDataElement.appendChild(getCheatSheetLink(element));
+      } else {
+        tableDataElement.innerHTML = getValue(element, headerMap, header); 
+      }
       tableDataElement.className = header;
       return tableDataElement;
     })
@@ -383,7 +387,6 @@ function clearSearch() {
 function printPage() {
   window.print();
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('clearSearch').addEventListener('click', clearSearch);
