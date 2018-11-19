@@ -23,14 +23,11 @@ function getHeaders() {
     hub: 'hub',
     name: 'name',
     key: 'key',
-    // description: 'description',
-    element_type: 'elementType',
-    authentication_type: 'authenticationType',
+    authentication_types: 'authenticationTypes',
     api_type: 'api.type',
-    // active: 'active',
     beta: 'beta',
     // hidden: 'displayOrder',
-    events: 'events.supported',
+    event_types: 'events',
     bulk_upload: 'bulk.upload',
     bulk_download: 'bulk.download',
     notes: 'notes',
@@ -179,15 +176,49 @@ function getTableRows(elements, headerMap) {
     tableButton.innerHTML = 'Go To';
     return tableButton;
   };
+
+  const getBullets = (arr) => {
+    if(!arr[0]) {
+      arr.shift();
+    }
+    
+    let list = document.createElement('ul');
+    list.className = 'notes-list'
+    // if (notes.length > 1) {
+    //   notes.shift();
+    // }
+    arr.forEach(item => {
+      let listItem = document.createElement('li');
+      let listItemValue = document.createTextNode(item);
+      listItem.appendChild(listItemValue);
+      list.appendChild(listItem);
+      
+    });
+    return list;
+  };
+
   return elements.sort((a, b) => sort(a, b, state.sortField)).map(element => {
     let tableRowElement = document.createElement('tr');
     let tableDataElements = Object.keys(headerMap).map(header => {
       let tableDataElement = document.createElement('td');
-      if (header === 'details') {
-        tableDataElement.appendChild(getCheatSheetLink(element));
-      } else {
-        tableDataElement.innerHTML = getValue(element, headerMap, header);
+      switch(header) {
+        case 'details':
+          tableDataElement.appendChild(getCheatSheetLink(element));
+          break;
+        case 'notes':
+         let value = getValue(element, headerMap, header);
+          if(value && value.includes('--')) {
+            let notes = value.split('--');
+            tableDataElement.appendChild(getBullets(notes));
+          } else {
+            tableDataElement.innerHTML = value;
+          }
+          break;
+        default: 
+          tableDataElement.innerHTML = getValue(element, headerMap, header);
+          break;
       }
+      
       tableDataElement.className = `${header} ${header === 'details' ? ' noprint' : ''}`;
       return tableDataElement;
     })
@@ -244,7 +275,7 @@ function getBoolean(filterField) {
 function checkExistance(objectField, filterField, include) {
   if (isEmpty(filterField)) return true;
   if (typeof (objectField) !== 'boolean' && isEmpty(objectField)) return false; // False here will NOT include empty results
-  return typeof objectField === 'string'
+  return typeof objectField === 'string' || Array.isArray(objectField)
     ? include
       ? objectField.includes(filterField)
       : objectField == filterField
@@ -256,11 +287,11 @@ function filterSearch(elementObj, queryMap) {
 
   return checkExistance(getConcatName(elementObj), queryMap.q, true) &&
          checkExistance(elementObj.hub, queryMap.hubs) &&
-         checkExistance(elementObj.elementType, queryMap.element_type) &&
-         checkExistance(elementObj.authenticationType, queryMap.authentication_type) &&
+         //checkExistance(elementObj.elementType, queryMap.element_type) &&
+         checkExistance(elementObj.authenticationTypes, queryMap.authentication_types, true) &&
          checkExistance(getForPath(elementObj, 'api.type'), queryMap.api_type) &&
          checkExistance(elementObj.beta, queryMap.beta) &&
-         checkExistance(getForPath(elementObj, 'events.supported'), queryMap.events) &&
+         checkExistance(elementObj.events, queryMap.events) &&
          checkExistance(getForPath(elementObj, 'bulk.upload'), queryMap.bulk_upload) &&
          checkExistance(getForPath(elementObj, 'bulk.download'), queryMap.bulk_download);
 }
