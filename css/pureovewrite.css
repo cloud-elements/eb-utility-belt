@@ -555,16 +555,16 @@ body.matadataTable {
 #metadataTable td.hub {width: 140px}
 
 #metadataTable th.name,
-#metadataTable td.name {width: 220px;}
+#metadataTable td.name {width: 205px;}
 
 #metadataTable th.key,
-#metadataTable td.key {width: 170px;}
+#metadataTable td.key {width: 125px;}
 
 #metadataTable th.element_type,
 #metadataTable td.element_type {width: 85px}
 
-#metadataTable th.authentication_type,
-#metadataTable td.authentication_type {width: 125px}
+#metadataTable th.authentication_types,
+#metadataTable td.authentication_types {width: 135px}
 
 #metadataTable th.api_type,
 #metadataTable td.api_type {width: 70px}
@@ -572,8 +572,8 @@ body.matadataTable {
 #metadataTable th.beta,
 #metadataTable td.beta {width: 70px}
 
-#metadataTable th.events,
-#metadataTable td.events {width: 55px}
+#metadataTable th.event_types,
+#metadataTable td.event_types {width: 85px}
 
 #metadataTable th.bulk_upload,
 #metadataTable td.bulk_upload {width: 75px}
@@ -582,7 +582,8 @@ body.matadataTable {
 #metadataTable td.bulk_download {width: 95px}
 
 #metadataTable th.notes,
-#metadataTable td.notes {flex: 1.5; min-width: 150px}
+#metadataTable td.notes {flex: 1; min-width: 135px}
+#metadataTable ul.notes-list {padding-left: 1em}
 
 #metadataTable th.details {width: 48px;}
 #metadataTable td.details {width: 57px; padding: 0;}

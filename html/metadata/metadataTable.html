@@ -84,6 +84,7 @@
             <option value="db" label="DB">
             <option value="documents" label="Documents">
             <option value="ecommerce" label="eCommerce">
+            <option value="edi" label="EDI">
             <option value="employee" label="Employee">
             <option value="erp" label="ERP">
             <option value="esignature" label="eSignature">
@@ -100,21 +101,23 @@
             <option value="ocr" label="OCR">
             <option value="payment" label="Payment">
           </datalist>
-        <select id="element_type" name="element_type">
+        <!-- <select id="element_type" name="element_type">
           <option value="all" selected>Element Type (all)</option>
           <option value=".NET" label=".NET">
           <option value="CJ" label="CJ">
           <option value="EB" label="Element Builder">
           <option value="J" label="J">
           <option value="JAVA" label="JAVA">
-        </select>
-        <select id="authentication_type" name="authentication_type">
-          <option value="all" selected>Authentication Type (all)</option>
+        </select> -->
+        <select id="authentication_types" name="authentication_types">
+          <option value="all" selected>Authentication Types (all)</option>
           <option value="apikey" label="apikey">
           <option value="awsv2" label="awsv2">
+          <option value="awsv4" label="awsv4">
           <option value="basic" label="basic">
           <option value="custom" label="custom">
           <option value="oauth1Plaintext" label="oauth1Plaintext">
+          <option value="oauth1" label="oauth1">  
           <option value="oauth2" label="oauth2">
           <option value="oauth2Password" label="oauth2Password">
         </select>
@@ -125,7 +128,7 @@
           <option value="REST" label="REST">
           <option value="ODATA" label="ODATA">
           <option value=".NET" label=".NET">
-          <option value="other" label="Other">
+          <option value="unknown" label="Other">
         </select>
         <select id="beta" name="beta">
           <option value="all" selected>Beta (all)</option>
@@ -134,8 +137,9 @@
         </select>
         <select id="events" name="events">
           <option value="all" selected>Events (all)</option>
-          <option value="true" label="True" />
-          <option value="false" label="False" />
+          <option value="webhook" label="Webhooks" />
+          <option value="polling" label="Polling" />
+          <option value="unknown" label="Unknown" />
         </select>
         <select id="bulk_upload" name="bulk_upload">
           <option value="all" selected>Bulk Upload (all)</option>
