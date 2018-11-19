@@ -92,6 +92,38 @@ function sortTruthy(a, b, propPath) {
 };
 
 /**
+ * Sort any arrays by the 'string' values in them
+ * @param {Array} a Array 1
+ * @param {Array} b Array 2
+ * @param {String} propPath (optional) path to array
+ */
+function sortArrays(a, b, propPath) {
+  let aField = a;
+  let bField = b;
+
+  if (propPath) {
+    aField = a[propPath];
+    bField = b[propPath];
+  }
+  
+  aField = aField
+    ? aField.sort((a, b) => alphabetical(a, b)).join('')
+    : aField;
+  bField = bField
+    ? bField.sort((a, b) => alphabetical(a, b)).join('')
+    : bField;
+
+  if (aField < bField) {
+    return -1;
+  }
+  if (aField > bField) {
+    return 1;
+  }
+
+  return 0;
+}
+
+/**
  * Flexible sorter for various fields
  * @param {Object} sortBy object (w/ field {str} and order {num})
  */
@@ -109,6 +141,10 @@ function multiSorter(a, b, sortBy) {
 
   if (!isEmpty(aField) && typeof aField === 'string') {
     return alphabetical(aField.toLowerCase(), bField.toLowerCase(), sortBy.field);
+  }
+
+  if (!isEmpty(aField) && Array.isArray(aField)) {
+    return sortArrays(aField, bField);
   }
 
   return sortTruthy(aField, bField);
@@ -178,15 +214,13 @@ function getTableRows(elements, headerMap) {
   };
 
   const getBullets = (arr) => {
-    if(!arr[0]) {
+    if (!arr[0]) {
       arr.shift();
     }
     
     let list = document.createElement('ul');
     list.className = 'notes-list'
-    // if (notes.length > 1) {
-    //   notes.shift();
-    // }
+
     arr.forEach(item => {
       let listItem = document.createElement('li');
       let listItemValue = document.createTextNode(item);
@@ -207,7 +241,7 @@ function getTableRows(elements, headerMap) {
           break;
         case 'notes':
          let value = getValue(element, headerMap, header);
-          if(value && value.includes('--')) {
+          if (value && value.includes('--')) {
             let notes = value.split('--');
             tableDataElement.appendChild(getBullets(notes));
           } else {
@@ -291,7 +325,7 @@ function filterSearch(elementObj, queryMap) {
          checkExistance(elementObj.authenticationTypes, queryMap.authentication_types, true) &&
          checkExistance(getForPath(elementObj, 'api.type'), queryMap.api_type) &&
          checkExistance(elementObj.beta, queryMap.beta) &&
-         checkExistance(elementObj.events, queryMap.events) &&
+         checkExistance(elementObj.events, queryMap.events, true) &&
          checkExistance(getForPath(elementObj, 'bulk.upload'), queryMap.bulk_upload) &&
          checkExistance(getForPath(elementObj, 'bulk.download'), queryMap.bulk_download);
 }
