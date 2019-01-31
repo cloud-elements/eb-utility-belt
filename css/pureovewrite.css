@@ -57,6 +57,13 @@ table.fixed-header tr {
   padding: 0;
 }
 
+.swagger-ui .info .title {
+  font-size: 36px;
+  margin: 0;
+  font-family: sans-serif;
+  color: var(--white-color);
+}
+
 .title {
   background-color: var(--tertiary-color);
   padding: 10px;
@@ -382,6 +389,13 @@ pre.rawBody {
   padding: 12px;
   display: flex;
   flex-direction: column;
+}
+
+.pure-form-row {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .output-textfield {
