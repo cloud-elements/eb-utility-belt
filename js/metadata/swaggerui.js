@@ -11,7 +11,6 @@ function getSwagger() {
     const ui = SwaggerUIBundle({
       url: `${env}/elements/api-v2/elements/${elementId}/docs?version=-1`,
       dom_id: '#swagger-ui',
-      docExpansion: 'none',
       tagsSorter: 'alpha',
       presets: [
         SwaggerUIBundle.presets.apis,
