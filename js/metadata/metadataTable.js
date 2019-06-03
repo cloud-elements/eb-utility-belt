@@ -423,6 +423,16 @@ function setDisplayFilter(queryMap) {
   }
 }
 
+const getEnv = (env) => {
+  if (env.includes('api.cloud-elements.com') || env.includes('console.cloud-elements.com')) {
+    return 'US Production';
+  } else if (env.includes('api.cloud-elements.co.uk') || env.includes('console.cloud-elements.co.uk')) {
+    return 'UK Production';
+  } else {
+    return 'Staging';
+  }
+}
+
 function init() {
   setLoader();
   getSearchParam(searchParam => {
@@ -436,10 +446,12 @@ function init() {
       clearLoader();
       loadTable(filteredElements);
 
-      const countElement = document.getElementById('total-count');
-      countElement.innerHTML = `${filteredElements.length} total element${filteredElements.length !== 1 ? 's' : ''}`;
-
-    })
+      // TODO me
+      getCached('ce-eb-ub-env', env => {
+        const countElement = document.getElementById('total-count');
+        countElement.innerHTML = `${filteredElements.length} total element${filteredElements.length !== 1 ? 's' : ''} for ${getEnv(env)}`;
+      });
+    });
 
     getPrintedDate();
   })
