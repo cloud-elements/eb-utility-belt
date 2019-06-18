@@ -1,6 +1,7 @@
 import {
   clearLoader,
   getCached,
+  getAuthorizationDefaults,
   isEmpty,
   isEmptyObject,
   isEmptyStr,
@@ -357,14 +358,6 @@ function sortBy(name, event) {
     const sortedElements = state.elementsList.filter(elementObj => filterSearch(elementObj, queryMap) && elementObj.displayOrder > 0);
     loadTable(sortedElements);
   })
-}
-
-function getAuthorizationDefaults(cb) {
-  getCached('ce-eb-ub-us', us => {
-    getCached('ce-eb-ub-os', os => {
-      cb(`User ${us}, Organization ${os}`);
-    });
-  });
 }
 
 // Hit the /elements/metadata API to get the info

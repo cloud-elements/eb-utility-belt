@@ -132,3 +132,11 @@ export function copyTextArea(elementName) {
     element.select();
     document.execCommand("copy");
 }
+
+export function getAuthorizationDefaults(cb) {
+    getCached('ce-eb-ub-us', us => {
+        getCached('ce-eb-ub-os', os => {
+        cb(`User ${us}, Organization ${os}`);
+        });
+    });
+}
