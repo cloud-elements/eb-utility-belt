@@ -181,3 +181,12 @@ export function getIsoFromEpoch(epoch) {
 export function getEpochFromIso(iso) {
     return new Date(iso).valueOf();
 }
+
+export function executeSafeFunction(func, arg, defaultResp = null) {
+    try {
+        return func(arg);
+    } catch (e) {
+        console.error(e);
+        return defaultResp;
+    }
+}

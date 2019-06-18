@@ -11,13 +11,14 @@
     "default_popup": "/html/login.html"
   },
   "background": {
-    "scripts": ["/js/manifest/background.js"],
+    "page": "/html/manifest/background.html",
     "persistent": false
   },
   "permissions": [
     "storage",
     "activeTab",
     "tabs",
+    "contextMenus",
     "https://api.cloud.elements.co.uk/",
     "https://api.cloud.elements.com/",
     "https://staging.cloud.elements.com/",
