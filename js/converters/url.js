@@ -1,3 +1,5 @@
+import { encodeUrl, decodeUrl } from '../utilities/ce-utils.js';
+
 function setValue(body) {
     var outputMsg = document.getElementById('i/o-url');
     if (body) {
@@ -7,7 +9,7 @@ function setValue(body) {
     }
 }
 
-function encodeUrl() {
+function invokeEncodeUrl() {
     var inputMsg = document.getElementById('i/o-url').value;
     chrome.storage.sync.set({
         "i/o-url": inputMsg
@@ -15,7 +17,7 @@ function encodeUrl() {
 
     var body = null;
     try {
-        body = encodeURIComponent(inputMsg);
+        body = encodeUrl(inputMsg);
     } catch (ignoreIt) {
         console.log(ignoreIt);
     }
@@ -24,7 +26,7 @@ function encodeUrl() {
 }
 
 
-function decodeUrl() {
+function invokeDecodeUrl() {
     var inputMsg = document.getElementById('i/o-url').value;
     chrome.storage.sync.set({
         "i/o-url": inputMsg
@@ -32,7 +34,7 @@ function decodeUrl() {
 
     var body = null;
     try {
-        body = decodeURIComponent(inputMsg);
+        body = decodeUrl(inputMsg);
     } catch (ignoreIt) {
         console.log(ignoreIt);
     }
@@ -58,6 +60,6 @@ function copyOutput() {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("copyoutput").addEventListener("click", copyOutput);
-    document.getElementById('encodeUrl').addEventListener('click', encodeUrl);
-    document.getElementById('decodeUrl').addEventListener('click', decodeUrl);
+    document.getElementById('encodeUrl').addEventListener('click', invokeEncodeUrl);
+    document.getElementById('decodeUrl').addEventListener('click', invokeDecodeUrl);
 }, false);

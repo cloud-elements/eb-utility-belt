@@ -1,3 +1,5 @@
+import { getIsoFromEpoch, getEpochFromIso } from '../utilities/ce-utils.js';
+
 function setValue(body) {
     var outputMsg = document.getElementById('i/o-epoch');
     if (body) {
@@ -15,7 +17,7 @@ function convertIso() {
 
     var body = null;
     try {
-        body = new Date(inputMsg).valueOf();
+        body = getEpochFromIso(inputMsg);
     } catch (ignoreIt) {
         console.warn(ignoreIt);
     }
@@ -28,15 +30,9 @@ function convertEpoch() {
     chrome.storage.sync.set({
         "i/o-epoch": inputMsg
     });
-
     var body = null;
     try {
-        var body
-        if (inputMsg < 100000000000) {
-            body = dateString(new Date(inputMsg * 1000));
-        } else {
-            body = dateString(new Date(Number(inputMsg)));
-        }
+        body = getIsoFromEpoch(inputMsg);
     } catch (ignoreIt) {
         console.warn(ignoreIt);
     }
@@ -58,16 +54,6 @@ function copyOutput() {
     var element = document.getElementById('i/o-epoch')
     element.select();
     document.execCommand("copy");
-}
-
-function dateString(d) {
-    return ("0" + (d.getMonth()+1)).slice(-2) + "/" +
-    ("0" + d.getDate()).slice(-2) + "/" +
-    d.getFullYear() + " " +
-    ("0" + d.getHours()).slice(-2) + ":" +
-    ("0" + d.getMinutes()).slice(-2) + ":" +
-    ("0" + d.getSeconds()).slice(-2) + " " +
-    d.toString().match(/([A-Z]+[\+-][0-9]+.*)/)[1]
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -140,3 +140,44 @@ export function getAuthorizationDefaults(cb) {
         });
     });
 }
+
+export function encodeBase64(input) {
+    return btoa(encodeURIComponent(input).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+}
+
+export function decodeBase64(input) {
+    return decodeURIComponent(atob(input).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
+
+export function encodeUrl(input) {
+    return encodeURIComponent(input);
+}
+
+export function decodeUrl(input) {
+    return decodeURIComponent(input);
+}
+
+export function getIsoFromEpoch(epoch) {
+    const dateString = d => {
+        return ("0" + (d.getMonth()+1)).slice(-2) + "/" +
+        ("0" + d.getDate()).slice(-2) + "/" +
+        d.getFullYear() + " " +
+        ("0" + d.getHours()).slice(-2) + ":" +
+        ("0" + d.getMinutes()).slice(-2) + ":" +
+        ("0" + d.getSeconds()).slice(-2) + " " +
+        d.toString().match(/([A-Z]+[\+-][0-9]+.*)/)[1]
+    };
+
+    return epoch < 100000000000
+        ? dateString(new Date(epoch * 1000))
+        : dateString(new Date(Number(epoch)));
+}
+
+export function getEpochFromIso(iso) {
+    return new Date(iso).valueOf();
+}
