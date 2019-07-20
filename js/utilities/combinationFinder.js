@@ -38,7 +38,7 @@ window.onload = function () {
                 document.getElementById("inputMsg-combination").value = items['inputMsg-combination'];
         }
     });
-}
+};
 
 function copyOutput() {
     var element = document.getElementById('outputMsg-combination')

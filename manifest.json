@@ -19,9 +19,11 @@
     "activeTab",
     "tabs",
     "contextMenus",
+    "management",
     "https://api.cloud.elements.co.uk/",
     "https://api.cloud.elements.com/",
     "https://staging.cloud.elements.com/",
-    "https://snapshot.cloud.elements.com/"
+    "https://snapshot.cloud.elements.com/",
+    "http://localhost:*/*"
   ]
 }

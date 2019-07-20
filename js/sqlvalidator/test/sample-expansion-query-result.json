@@ -1,0 +1,72 @@
+{
+  "expansionResults": [
+    {
+      "query": "INSERT INTO element_resource_parameter (name, vendor_name, description, required, type, vendor_type, data_type, vendor_data_type, source, element_resource_id) VALUES ('google.adwords.developer.token', 'developerToken', 'Developer token is expected as a header by Google though on top of OAuth 2.0 information.', '0', 'configuration', 'header', 'string', 'string', 'request', (SELECT id FROM element_resource WHERE path = '/hubs/general/report-types/{reportType}/reports' AND method = 'GET' AND type = 'api' AND owner_account_id = (SELECT account_id FROM ce_core_user WHERE email_address = 'system') AND element_id = (SELECT element_id FROM element WHERE element_key = 'googleadwords' AND deleted = false AND element_owner_account_id = (SELECT account_id FROM ce_core_user WHERE email_address = 'system'))))",
+      "tableName": "element_resource_parameter",
+      "affectedcolumns": {
+        "data_type": "'string'",
+        "description": "'Developer token is expected as a header by Google though on top of OAuth 2.0 information.'",
+        "element_resource_id": {
+          "query": "(SELECT id FROM element_resource WHERE path = '/hubs/general/report-types/{reportType}/reports' AND method = 'GET' AND type = 'api' AND owner_account_id = (SELECT account_id FROM ce_core_user WHERE email_address = 'system') AND element_id = (SELECT element_id FROM element WHERE element_key = 'googleadwords' AND deleted = false AND element_owner_account_id = (SELECT account_id FROM ce_core_user WHERE email_address = 'system')))",
+          "tableName": "element_resource",
+          "affectedcolumns": {},
+          "selectColumns": [
+            "id"
+          ],
+          "whereClauses": {
+            "element_id": {
+              "query": "SELECT element_id FROM element WHERE element_key = 'googleadwords' AND deleted = false AND element_owner_account_id = (SELECT account_id FROM ce_core_user WHERE email_address = 'system')",
+              "tableName": "element",
+              "affectedcolumns": {},
+              "selectColumns": [
+                "element_id"
+              ],
+              "whereClauses": {
+                "deleted": "false",
+                "element_key": "'googleadwords'",
+                "element_owner_account_id": {
+                  "query": "SELECT account_id FROM ce_core_user WHERE email_address = 'system'",
+                  "tableName": "ce_core_user",
+                  "affectedcolumns": {},
+                  "selectColumns": [
+                    "account_id"
+                  ],
+                  "whereClauses": {
+                    "email_address": "'system'"
+                  }
+                }
+              }
+            },
+            "method": "'GET'",
+            "owner_account_id": {
+              "query": "SELECT account_id FROM ce_core_user WHERE email_address = 'system'",
+              "tableName": "ce_core_user",
+              "affectedcolumns": {},
+              "selectColumns": [
+                "account_id"
+              ],
+              "whereClauses": {
+                "email_address": "'system'"
+              }
+            },
+            "path": "'/hubs/general/report-types/{reportType}/reports'",
+            "type": "'api'"
+          }
+        },
+        "name": "'google.adwords.developer.token'",
+        "required": "'0'",
+        "source": "'request'",
+        "type": "'configuration'",
+        "vendor_data_type": "'string'",
+        "vendor_name": "'developerToken'",
+        "vendor_type": "'header'"
+      },
+      "selectColumns": [],
+      "whereClauses": {}
+    }
+  ],
+  "numberOfUpdates": 0,
+  "numberOfQueries": 1,
+  "numberOfInserts": 1,
+  "numberOfDeletes": 0
+}
