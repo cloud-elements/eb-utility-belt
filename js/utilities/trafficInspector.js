@@ -10,7 +10,7 @@ function colorize(tokens) {
     STRING_LITERAL: 'green',
     NUMBER_LITERAL: 'blue',
     BOOLEAN_LITERAL: 'lightsalmon',
-    NULL_LITERAL: 'white',
+    NULL_LITERAL: 'blue',
     POST: 'green',
     GET: 'blue',
     PATCH: 'orange',

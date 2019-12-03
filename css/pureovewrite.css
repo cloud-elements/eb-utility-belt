@@ -352,8 +352,10 @@ pre.rawBody {
   max-height: 200px;
   background-color: var(--background-verylight);
   margin-bottom: 0px;
-  border-top: var(--background-verylight);
-  border-top-width: 1px;
+  margin-top: 0px;
+  border: 1px lightgray solid;
+  border-radius: 4px;
+  padding: 0.5rem;
 }
 
 .requestUrl {
