@@ -5,6 +5,7 @@ function makeAuthnRequest(env, un, pw, cb) {
   http.open("POST", url, true);
   http.setRequestHeader("content-type", "application/json");
   http.setRequestHeader("accept", "application/json");
+  http.setRequestHeader("source", "Skeletor");
 
   http.onreadystatechange = function () {
     if (http.readyState == 4) {
