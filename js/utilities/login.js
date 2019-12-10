@@ -5,7 +5,7 @@ function makeAuthnRequest(env, un, pw, cb) {
   http.open("POST", url, true);
   http.setRequestHeader("content-type", "application/json");
   http.setRequestHeader("accept", "application/json");
-  http.setRequestHeader("source", "Skeletor");
+  http.setRequestHeader("source", "eb-utility-belt");
 
   http.onreadystatechange = function () {
     if (http.readyState == 4) {
@@ -38,6 +38,7 @@ function makeSecretsRequest(env, authToken, cb) {
   http.setRequestHeader("content-type", "application/json");
   http.setRequestHeader("accept", "application/json");
   http.setRequestHeader("authorization", `Bearer ${authToken}`);
+  http.setRequestHeader("source", "Skeletor");
 
   http.onreadystatechange = function () {
     if (http.readyState == 4) {
