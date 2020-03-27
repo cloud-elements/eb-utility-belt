@@ -1,4 +1,10 @@
-import { clearLoader, getTokens, isEmpty, isEmptyObject, isEmptyStr } from './ce-utils.js';
+import {
+  clearLoader,
+  getTokens,
+  isEmpty,
+  isEmptyObject,
+  isEmptyStr
+} from './ce-utils.js';
 
 function colorize(tokens) {
   const defaultColors = {
@@ -34,7 +40,7 @@ function sortByCreatedDate(a, b) {
 }
 
 function getDays(sec) {
-  return sec > 24 * Math.pow(60, 2) ? `${parseInt(sec / (24 * Math.pow(60, 2)))} days `: '';
+  return sec > 24 * Math.pow(60, 2) ? `${parseInt(sec / (24 * Math.pow(60, 2)))} days ` : '';
 }
 
 function getHours(sec) {
@@ -58,7 +64,10 @@ function getTimeSince(providedTime) {
 }
 
 function getStyledRequestMethod(request) {
-  return colorize([{type: request.method.toUpperCase(), value: request.method.toUpperCase()}]).bold();
+  return colorize([{
+    type: request.method.toUpperCase(),
+    value: request.method.toUpperCase()
+  }]).bold();
 }
 
 function replaceOrAppendChild(parentDiv, childDiv) {
@@ -75,7 +84,7 @@ function replaceOrAppendChild(parentDiv, childDiv) {
 
 function createTitle(title) {
   const headerElement = document.createElement('header'),
-        h5Element = document.createElement('h4');
+    h5Element = document.createElement('h4');
   h5Element.innerHTML = title;
   headerElement.appendChild(h5Element);
   return headerElement;
@@ -84,7 +93,7 @@ function createTitle(title) {
 function getBoldKeyValuePairs(value) {
   return Object.keys(value).map(key => {
     const tmp = document.createElement('div');
-    
+
     tmp.innerHTML = `${key.bold()}: ${value[key]}`;
     return tmp;
   });
@@ -122,8 +131,8 @@ function createParams(request) {
   containerElement.className = 'params';
   createTitleBodyList(request.params, 'Parameters', 'paramsObj')
     .forEach(param => containerElement.appendChild(param));
-  
-    return containerElement;
+
+  return containerElement;
 }
 
 function createHeadersParams(request) {
@@ -131,17 +140,17 @@ function createHeadersParams(request) {
   containerElement.className = 'headers';
   createTitleBodyList(request.headers, 'Headers', 'headersObj')
     .forEach(header => containerElement.appendChild(header));
-  
-    return containerElement;
+
+  return containerElement;
 }
 
 function createMetaDiv(request) {
   const containerElement = document.createElement('div'),
     paramsElement = createParams(request),
     headerElement = createHeadersParams(request);
-  
- containerElement.id = `metaInfo-${request.id}`;
- containerElement.className = 'metaInfo';
+
+  containerElement.id = `metaInfo-${request.id}`;
+  containerElement.className = 'metaInfo';
 
   containerElement.appendChild(paramsElement);
   containerElement.appendChild(headerElement);
@@ -256,9 +265,9 @@ function refreshSummary(url) {
   http.send(null);
 }
 // Delete all requests for that bucket idk???
-  // Call DELETE /bucket/{bucketName}
-  // Clear bucketUrl from cache for requestBucket...
-  // Close window
+// Call DELETE /bucket/{bucketName}
+// Clear bucketUrl from cache for requestBucket...
+// Close window
 function deleteBucket(event) {
   getUrl(url => {
     let http = new XMLHttpRequest();
@@ -314,7 +323,7 @@ function refreshSummaryEvent() {
 
 function setLoader() {
   const loaderHolder = document.getElementById('loaderHolder'),
-        loader = document.createElement('div');
+    loader = document.createElement('div');
 
   loader.className = "loader";
   loader.id = "loader";
