@@ -18,7 +18,7 @@
   "homepage": "https://github.com/cloud-elements/eb-utility-belt#readme",
   "dependencies": {
     "he": "^1.1.1",
-    "js-beautify": "^1.7.5",
+    "js-beautify": "^1.11.0",
     "js-yaml": "^3.13.1",
     "pretty-data": "^0.40.0",
     "uuid": "^7.0.3"
